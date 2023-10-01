@@ -127,7 +127,22 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
 
 It would be interesting to explore if this relationship varies by region. Add a fill and color aesthetic to the graph so that the lines and points are grouped by the variable `region`.
 
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
+  geom_point() +
+  geom_smooth(method = "gam", se = FALSE)
+```
+
 What do you see? Are patterns clear or is the graph too cluttered? What would be another way to get these trends by region but in a way to would be more legible?
+
+**Answer:** I see that there are varying levels of strength in the positive relationship between CPI and HDI levels by regions in the year 2017. Regions like the Americas has a much stronger positive linear relationship between the two values than Sub-Saharan Africa (SSA). The patterns are not clear because the graph is extremely cluttered. to see these trends in a better way, I suggest using `facet_wrap()` by `region` to make them more legible.
+
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
+  geom_point() +
+  geom_smooth(method = "gam", se = FALSE) +
+  facet_wrap(~region)
+```
 
 > Hint: think facets
 
