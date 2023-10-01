@@ -130,7 +130,8 @@ It would be interesting to explore if this relationship varies by region. Add a 
 ```{r}
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
   geom_point() +
-  geom_smooth(method = "gam", se = FALSE)
+  geom_smooth(method = "gam", se = FALSE) +
+    labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
 ```
 
 What do you see? Are patterns clear or is the graph too cluttered? What would be another way to get these trends by region but in a way to would be more legible?
@@ -141,6 +142,7 @@ What do you see? Are patterns clear or is the graph too cluttered? What would be
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
   geom_point() +
   geom_smooth(method = "gam", se = FALSE) +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region") +
   facet_wrap(~region)
 ```
 
@@ -149,6 +151,17 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) 
 ## Question 6
 
 Using one of the options that Healy gives you in the `where to go next` section of chapter 3, reverse the scale of the x-axis.
+
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
+  geom_point() +
+  geom_smooth(method = "gam", se = FALSE) +
+  facet_wrap(~region) +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region") +
+  scale_x_reverse()
+```
+
+**Answer:** I used the `scale_x_reverse` function because it reversed the scale of the x-axis and shows that there is lower human development (lower HDI) if there is a high amount of corruption (lower CPI).
 
 ## Question 7
 
