@@ -179,3 +179,7 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) 
 ## Question 8
 
 Now, that your plot about the relationship between the Human Development Index and the Corruption Perception Index is informative and sleek, you want to save it. Imagine it you want to print in a poster or send it to a supervisor. Show me code that would save the plot.
+
+```{r}
+ggsave(filename = "CPI_HDI_Scatterplot_2017")
+```
