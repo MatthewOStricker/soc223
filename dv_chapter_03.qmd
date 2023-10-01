@@ -95,6 +95,14 @@ Here, we are interested in the relationship between the HDI and CPI.
 
 Begin by making a scatter plot that shows the relationship between these two variables. Describe the relationship that you see.
 
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
+  geom_point() +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+```
+
+**Answer:** There is a positive correlation between the HDI and CPI in the year 2017. As the HDI scores increase, the CPI scores increase as well. This means that the cleaner the countries are - meaning that they have low corruption levels - the higher amount of human development they will have in their area.
+
 ## Question 4
 
 Add a layer that captures the overall relationship between these two variables using `geom_smooth()`. Use both the `lm` and `gam` methods. What are the differences? Which one do you prefer?
