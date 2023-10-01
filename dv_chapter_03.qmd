@@ -111,14 +111,14 @@ Add a layer that captures the overall relationship between these two variables u
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme")
 ```
 
 ```{r}
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
   geom_point() +
   geom_smooth(method = "gam", se = FALSE) +
-  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme")
 ```
 
 **Answer:** The differences between the models is that the linear model and is linear and the generalized additive model curves based on the data. This differences means the linear model describes a linear relationship, while the generalized additive model is displaying a non-linear relationship with the data. I prefer the linear model as it is clearer and is an easier tool to interpret the data.
@@ -131,7 +131,7 @@ It would be interesting to explore if this relationship varies by region. Add a 
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
   geom_point() +
   geom_smooth(method = "gam", se = FALSE) +
-    labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+    labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme")
 ```
 
 What do you see? Are patterns clear or is the graph too cluttered? What would be another way to get these trends by region but in a way to would be more legible?
@@ -142,7 +142,7 @@ What do you see? Are patterns clear or is the graph too cluttered? What would be
 ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
   geom_point() +
   geom_smooth(method = "gam", se = FALSE) +
-  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region") +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme") +
   facet_wrap(~region)
 ```
 
@@ -157,7 +157,7 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) 
   geom_point() +
   geom_smooth(method = "gam", se = FALSE) +
   facet_wrap(~region) +
-  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region") +
+ labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme") +
   scale_x_reverse()
 ```
 
@@ -166,6 +166,15 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) 
 ## Question 7
 
 Add a title and a subtitle to the plot. Also add a caption, where you let me know where the data comes from.
+
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017, fill = region, color = region)) +
+  geom_point() +
+  geom_smooth(method = "gam", se = FALSE) +
+  facet_wrap(~region) +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017 by Region", subtitle = "Data Points are Associated with Countries", caption = "Sources: Transparency International and United Nations Development Programme") +
+  scale_x_reverse()
+```
 
 ## Question 8
 
