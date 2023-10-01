@@ -107,6 +107,22 @@ ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
 
 Add a layer that captures the overall relationship between these two variables using `geom_smooth()`. Use both the `lm` and `gam` methods. What are the differences? Which one do you prefer?
 
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+```
+
+```{r}
+ggplot(corruptDF, aes(x = CPI2017, y = HDI2017)) +
+  geom_point() +
+  geom_smooth(method = "gam", se = FALSE) +
+  labs(x = "CPI", y = "HDI", title = "Relationship Between CPI and HDI in 2017")
+```
+
+**Answer:** The differences between the models is that the linear model and is linear and the generalized additive model curves based on the data. This differences means the linear model describes a linear relationship, while the generalized additive model is displaying a non-linear relationship with the data. I prefer the linear model as it is clearer and is an easier tool to interpret the data.
+
 ## Question 5
 
 It would be interesting to explore if this relationship varies by region. Add a fill and color aesthetic to the graph so that the lines and points are grouped by the variable `region`.
