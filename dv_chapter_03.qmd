@@ -63,7 +63,8 @@ Looking at presumed relationships without visualizing your data is a dangerous t
 
 Many of the ideas in these chapters were already familiar to you but this is an opportunity to go deeper and really understand how the machinery of ggplot works. We are going to be working with a dataset from the `causact` package that contains information about the Human Development Index (HDI) and Corruption Index (CPI) for different countries in 2017. Begin by installing the package running `install.packages("causact")`. Load the package and glimpse the dataset:
 
-``` r
+```{r}
+#|message: false
 library(causact)
 glimpse(corruptDF)
 ```
@@ -81,6 +82,12 @@ glimpse(corruptDF)
 ```
 
 Before we move forward, we want to know what these variables capture. Run `?corruptDF` and tell me in your own words what `CPI2017` and `HDI2017` capture.
+
+```{r}
+?corruptDF
+```
+
+**Answer:** In my own words, the `CPI2017` variable identifies the levels of public sector corruption on scale from 0-100 in a country or territory occurring in 2017. A 0 means that the country or territory is highly corrupt, and a 100 means those areas looked upon as extremely clean. The `HDI2017` variable measures the successes in the fundamental areas of human development across countries in 2017. The HDI is created by an average of the longevity, education, and income of the nation, and it is unweighted.
 
 ## Question 3
 
