@@ -75,7 +75,7 @@ ggplot(tv_long, aes(x = seasonNumber, y = av_rating, group = title)) +
 
 What shows tend to last longer? Do ratings change much across seasons? Can you identify that show on `Drama, Family, Fantasy` whose ratings just plummeted?
 
-**Answer:** Shows in the Crime, Drama, and Mystery genre tend to last longer compared to the other shows listed. The way in which ratings chagne across seasons depends on the genre. For some like `Crime, Drama, Mystery`, the ratings do not change much across seasons. However, there are genres like `Drama, Family, Fantasy` see drastic changes of ratings across seasons. The show on `Drama, Family, Fantasy` was `Are You Afraid of the Dark?`
+**Answer:** Shows in the `Crime, Drama, and Mystery` genre tend to last longer compared to the other shows listed. The way in which ratings change across seasons depends on the genre. For some like `Crime, Drama, Mystery`, the ratings do not change much across seasons. However, there are genres like `Drama, Family, Fantasy` see drastic changes of ratings across seasons. The show on `Drama, Family, Fantasy` was `Are You Afraid of the Dark?`
 
 ## Question 3
 
@@ -83,11 +83,32 @@ Let's look at the `genres` that show up in the best rated shows.
 
 First, filter the original data set - `tv_ratings` - so that it only includes rows where the average rating is higher or equal than 9.
 
+```{r}
+tv_ratings <- tv_ratings |>
+  filter(av_rating >= 9)
+
+```
+
 Make a barplot where the x-axis is `genre`.
+
+```{r}
+ggplot(tv_ratings, aes(x = genres)) +
+  geom_bar()
+```
 
 The result should be hard to read - the names of the genres are quite long. Add `coord_flip()` to the end of your ggplot call and watch the results get clearer. Tell me what `coord_flip()` does.
 
+```{r}
+ggplot(tv_ratings, aes(x = genres)) +
+  geom_bar() +
+  coord_flip()
+```
+
+**Answe**r**:** `coord_flip` flips the coordinates from the x axis to the y axis, which is helpful in this case to allow for us to read the names of the genres better.
+
 What is the genre with the most top-rated shows?
+
+**Answer:** The `genre` with the most top-rated shows is `Drama`.
 
 ## Question 4
 
