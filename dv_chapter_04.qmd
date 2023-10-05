@@ -163,11 +163,29 @@ How does my prediction above hold? Are dramas rated higher?
 
 Let's experiment with different ways of visualizing this. First, do the same plot using histograms.
 
+```{r}
+ggplot(comedies_dramas, aes(x = av_rating,
+                            group = genres,
+                            fill = genres)) +
+  geom_histogram(position = "dodge")
+```
+
 What additional information does this give you?
+
+**Answer:** It lets me know that there is a larger number of shows in the `Comedy` genre that were accounted for in comparison to the `Drama` genre. This could have played a role in the density plot's appearance.
 
 > Hint: look at the size of the bars. I probably categorized way too many shows as "comedies". I had to stack the deck.
 
 Now, use `geom_freqpoly()`. What do you notice? Of the three plots, which one do you think it's more informative?
+
+```{r}
+ggplot(comedies_dramas, aes(x = av_rating,
+                            group = genres,
+                            color = genres)) +
+  geom_freqpoly()
+```
+
+**Answer:** I think the freqpoly plot was the most informative plot because it is easy to understand and depicts the drastic difference in the number of `Comedy` shows that were recorded in comparison to the `Drama` shows as well as their `av_rating`.
 
 ## Question 6
 
