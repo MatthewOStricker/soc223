@@ -44,6 +44,7 @@ p1 / p2 / p3
 
 p1 + p2 + p3
 ```
+
 Always good to use histograms unless you are comparing more than one variable.
 
 Comparing distributions
