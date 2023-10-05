@@ -84,7 +84,7 @@ Let's look at the `genres` that show up in the best rated shows.
 First, filter the original data set - `tv_ratings` - so that it only includes rows where the average rating is higher or equal than 9.
 
 ```{r}
-tv_ratings <- tv_ratings |>
+tv_ratings_nine <- tv_ratings |>
   filter(av_rating >= 9)
 
 ```
@@ -92,14 +92,14 @@ tv_ratings <- tv_ratings |>
 Make a barplot where the x-axis is `genre`.
 
 ```{r}
-ggplot(tv_ratings, aes(x = genres)) +
+ggplot(tv_ratings_nine, aes(x = genres)) +
   geom_bar()
 ```
 
 The result should be hard to read - the names of the genres are quite long. Add `coord_flip()` to the end of your ggplot call and watch the results get clearer. Tell me what `coord_flip()` does.
 
 ```{r}
-ggplot(tv_ratings, aes(x = genres)) +
+ggplot(tv_ratings_nine, aes(x = genres)) +
   geom_bar() +
   coord_flip()
 ```
@@ -118,7 +118,7 @@ For this, we need to do a bit of wrangling that I am going to walk you through.
 
 First, because the `genres` names are so convoluted, I am going to classify everything that includes the word "Comedy" as a comedy.
 
-``` r
+```{r}
 comedies_dramas <- tv_ratings %>% 
   mutate(is_comedy = if_else(str_detect(genres, "Comedy"), 
                              1, 
@@ -148,7 +148,16 @@ Now, you should have a dataset with shows that are categorized as either drama o
 
 Plot a density plot that shows the distribution of average ratings for both comedies and dramas.
 
+```{r}
+ggplot(comedies_dramas, aes(x = av_rating,
+                            group = genres,
+                            color = genres)) +
+  geom_density()
+```
+
 How does my prediction above hold? Are dramas rated higher?
+
+**Answer:** The `Drama` genre does have a higher amount of shows that have a higher rating than `Comedy`; however, it does a slightly higher amount of shows that have low ratings compared to the `Comedy` genre.
 
 ## Question 5
 
