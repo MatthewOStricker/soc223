@@ -75,8 +75,9 @@ tourn_percent <- filter_wncaa |>
 Plot a bar plot that shows these percentages by school.
 
 ```{r}
-ggplot(tourn_percent, aes(x = percentage_w, y = reorder(school, percentage_w, na.rm = TRUE))) + 
-  geom_col()
+ggplot(tourn_percent, aes(x = school, y = percentage_w)) + 
+  geom_col() +
+  coord_flip()
 ```
 
 What patterns do you see? Who are the two teams that have won the most?
@@ -89,26 +90,52 @@ Let's now look at how the top teams have been seeded as they enter into the tour
 
 The dataset I created for the plot above is called `champs`. Let's get the names of the champions:
 
-``` r
-champ_names <- unique(champs$school)
+```{r}
+champ_names <- unique(filter_wncaa$school)
 ```
 
 Now, we filter our original name so that only these schools are included.
 
-``` r
+```{r}
 winners <- wncaa %>% 
   filter(school %in% champ_names)
 ```
 
 Now, make a plot that shows boxplots for the distribution of `seeds` for each school. Make sure you use `coord_flip()` so that the school names are legible.
 
+```{r}
+ggplot(winners, aes(x = reorder(school, seed), y = seed)) +
+         geom_boxplot() +
+  coord_flip()
+```
+
 These days, it's good practice to add all the data points in addition to the boxplot. You can use `geom_jitter()` to do this. Don't forget to use `outlier.shape = NA` in the boxplot so you don't plot the outliers twice.
+
+```{r}
+ggplot(winners, aes(x = seed, y = reorder(school, seed, na.rm=TRUE))) +
+         geom_boxplot(outlier.shape = NA) +
+          geom_jitter() 
+```
 
 We will also want to organize the plots so that they convey information more clearly. Use the `reorder()` trick to show the distributions in a an order that is easier to understand. You will need to calculate some school-specific statistics to use for the reordering. (You might find `group_by()` and `mutate()` valuable here, although there are several ways to do this.)
 
 Describe the results? Any surprises?
 
+**Answer:**
+
+Tennessee and UConn had the highest seedings in comparison to the other teams. I was surprised UConn was not higher than Tennessee considering they had a higher percentage of tournament wins.
+
 Try to make the same plot using `geom_violin()` instead of `geom_boxplot()`. Which visualization do you think is more informative? There's no right answer here but provide some reasoning to justify your choice.
+
+```{r}
+ggplot(winners, aes(x = seed, y = reorder(school, seed, na.rm=TRUE), fill = school)) +
+  geom_violin(outlier.shape = NA)+
+  geom_jitter()
+```
+
+**Answer:**
+
+I think the box plot is more informative for me because I can tell the means for each school. It is hard for me to truly process the information presented in the violin plot, so I would not prefer it over a box plot.
 
 ## Question 3
 
