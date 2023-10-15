@@ -8,6 +8,8 @@ embed-resources: true
 
 # Chapter 5 - Modern Dive
 
+Matthew O'Stricker
+
 We are getting into more complex topics, like how to fit and interpret models. In this section, we will use all the tools we have learned - from wrangling to visualization - to make sure we fit appropriate models and that we understand what these models are doing. Models can be powerful inferential tools but they can also be misleading (like anything). It is important that we know what is powering the machinery we are using so that we always know whether to trust the results we get.
 
 In this homework, we are going to be analyzing twitch data. We will learn a couple of tricks for modeling data along the way.
