@@ -106,7 +106,20 @@ twitch_data <- twitch_data %>%
 
 Let's actually run a regression. Using `lm()` fit a model where you predict the logarithm of average viewers (`log_viewers`) using the logarithm of followes (`log_followers`). Save the results to an object called `fit1`.
 
+```{r}
+fit1 <- lm(log_viewers ~ log_followers, data = twitch_data) 
+```
+
 I am going to show you another way of getting a summary of your model. First, let's install the `broom` package. After, run `tidy()` on your model object (`fit1`).
+
+```{r}
+install.packages("broom")
+library(broom)
+
+tidy_results <- broom::tidy(fit1)
+
+get_regression_table(fit1)
+```
 
 Before I have you describe your results I have to tell you that when you transform your variables, interpretation is a bit different. In the situation we are in - where your outcome and explanatory variables have been logged - the coefficients are interpreted as percentage increases. For example, let's say we have a coefficient of $0.4$. We would do the following:
 
@@ -115,6 +128,17 @@ $$ 1.1^{0.4} = 1.03886 $$ And we would interpret our coefficient like this:
 > A 10% increase in followers is associated with a 3.9% increase in the average number of viewers.
 
 Now, it's your turn. Take the coefficient from your model and interpret it in this way.
+
+```{r}
+coefficients <- coef(fit1)
+print(coefficients)
+```
+
+$$ 1.1^{0.5884958} = 1.369440825 $$
+
+**Answer:**
+
+A 10% increase in followers is associated with a 36.9% increase in the average number of viewers.
 
 ## Question 3
 
