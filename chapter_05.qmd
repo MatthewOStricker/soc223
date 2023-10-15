@@ -265,17 +265,30 @@ Arabic and Spanish have the highest average viewers out of all the languages. On
 
 ## Question 5
 
-fit2 \<- lm(log_viewers \~ language, data = twitch_data)
-
 Now, we are ready to fit the model. Fit a linear regression where your outcome variable is `average_viewers` and your independent variable is `language`. Let me teach you another trick here. When your categorical variable has many categories it makes sense to establish your reference category *outside of the model*. This ensures that, when you are reading your coefficients, you know what you are comparing them to. Let's set `English` as our reference category.
 
-``` r
+```{r}
 twitch_data <- twitch_data %>% 
   mutate(language = as.factor(language), 
          language = relevel(language, ref = "English"))
 ```
 
 Now, fit your model. Your coefficients will tell you how many more (or fewer) average viewers are related to streaming in languages different than English. Interpret the results. How is my prediction doing?
+
+```{r}
+fit2 <- lm(average_viewers ~ language, data = twitch_data)
+
+broom::tidy(fit2)
+```
+
+```{r}
+coefficients <- coef(fit2)
+print(coefficients)
+```
+
+**Answer:**
+
+This shows that there are plenty of languages, such as Arabic, that have more `average_viewers` than English which means that your prediction is wrong.
 
 ## Question 6
 
