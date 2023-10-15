@@ -66,7 +66,10 @@ Okay, lastly - but perhaps most importantly - lets visualize the data. Make a sc
 
 ```{r}
 ggplot(twitch_data, aes(x = average_viewers, y = followers)) +
-  geom_point() 
+  geom_point() +
+  labs(title = "Followers & Average Viewership Scatterplot", 
+       x = "Average Viewers", 
+       y = "Followers")
   
 ```
 
@@ -87,7 +90,10 @@ Because we have an uneven distribution - a few channels with a lot of followers 
 ```{r}
 ggplot(twitch_data, aes(x = average_viewers, y = followers)) +
   geom_point() +
-  scale_x_log10()
+  scale_x_log10() +
+  labs(title = "Followers & Average Viewership", 
+       x = "Average Viewers", 
+       y = "Followers")
 ```
 
 **Answer:**
@@ -117,8 +123,6 @@ install.packages("broom")
 library(broom)
 
 tidy_results <- broom::tidy(fit1)
-
-get_regression_table(fit1)
 ```
 
 Before I have you describe your results I have to tell you that when you transform your variables, interpretation is a bit different. In the situation we are in - where your outcome and explanatory variables have been logged - the coefficients are interpreted as percentage increases. For example, let's say we have a coefficient of $0.4$. We would do the following:
@@ -144,7 +148,7 @@ A 10% increase in followers is associated with a 36.9% increase in the average n
 
 Okay, now let's look at our line of best fit and check the residuals. I am again going to introduce you to an incredibly useful tool from the `broom` package called `augment`. Run the following code:
 
-``` r
+```{r}
 library(broom)
 
 pred_data <- augment(fit1)
@@ -168,7 +172,7 @@ glimpse(pred_data)
 
 Look, it's our original data but also a bunch more information. The `.fitted` column includes our predictions given our line of best fit. `.resid` contans the residuals. Let's visualize our line of best fit:
 
-``` r
+```{r}
 pred_data %>% 
   ggplot(aes(x = log_followers, 
              y = log_viewers)) +
@@ -187,9 +191,31 @@ pred_data %>%
 
 Do you think our model describes the relationship well?
 
+**Answer:**
+
+I think that it generally describes the relationship well as there is a high concentration of data points close to the line of best fit.
+
 Now, you fit a plot where `log_followers` is in the x-axis and `.resid` is in the y-axis.
 
+```{r}
+pred_data %>% 
+  ggplot(aes(x = log_followers, 
+             y = .resid)) +
+  geom_jitter(alpha = 0.4) + 
+  geom_hline(yintercept = 0,
+             color = "red") +
+  theme_minimal() +
+  labs(subtitle = "Residual Model and Raw Data", 
+       title = "Followers & Residuals", 
+       x = "log(followers)", 
+       y = "residuals)")
+```
+
 What do you see? Are there any big residuals? DO they happen often in a particular range of our x-variable? If so, we would have a problem: our model would systematically fail to predict part of our data.
+
+**Answer:**
+
+I see there are a great number of residuals that are on the plot. They happen to mostly be in the range of 5-6 from log_followers, which notes how the model fails to predict part of our data.
 
 ## Question 4
 
