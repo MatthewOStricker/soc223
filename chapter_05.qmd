@@ -16,7 +16,8 @@ Let's begin by loading the data in our usual way.
 
 ```{r}
 library(tidyverse)
-
+library(broom)
+library(moderndive)
 #| message: false
 twitch_data <- read_csv("https://raw.githubusercontent.com/vaiseys/dav-course/main/Data/twitchdata-update.csv")
 ```
@@ -91,7 +92,8 @@ Because we have an uneven distribution - a few channels with a lot of followers 
 ggplot(twitch_data, aes(x = average_viewers, y = followers)) +
   geom_point() +
   scale_x_log10() +
-  labs(title = "Followers & Average Viewership", 
+  scale_y_log10() +
+  labs(title = "Followers & Average Viewership via Log Transformation", 
        x = "Average Viewers", 
        y = "Followers")
 ```
@@ -110,19 +112,18 @@ twitch_data <- twitch_data %>%
 
 ## Question 2
 
-Let's actually run a regression. Using `lm()` fit a model where you predict the logarithm of average viewers (`log_viewers`) using the logarithm of followes (`log_followers`). Save the results to an object called `fit1`.
+Let's actually run a regression. Using `lm()` fit a model where you predict the logarithm of average viewers (`log_viewers`) using the logarithm of followers (`log_followers`). Save the results to an object called `fit1`.
 
 ```{r}
 fit1 <- lm(log_viewers ~ log_followers, data = twitch_data) 
+
+get_regression_table(fit1)
 ```
 
 I am going to show you another way of getting a summary of your model. First, let's install the `broom` package. After, run `tidy()` on your model object (`fit1`).
 
 ```{r}
-install.packages("broom")
-library(broom)
-
-tidy_results <- broom::tidy(fit1)
+broom::tidy(fit1)
 ```
 
 Before I have you describe your results I have to tell you that when you transform your variables, interpretation is a bit different. In the situation we are in - where your outcome and explanatory variables have been logged - the coefficients are interpreted as percentage increases. For example, let's say we have a coefficient of $0.4$. We would do the following:
@@ -177,9 +178,7 @@ pred_data %>%
   ggplot(aes(x = log_followers, 
              y = log_viewers)) +
   geom_jitter(alpha = 0.4) + 
-  geom_line(aes(x = log_followers, 
-                y = .fitted), 
-            col = "orange") + 
+  geom_line(aes(x = log_followers, y = .fitted), col = "orange") +
   theme_minimal() +
   labs(subtitle = "Fitted Model and Raw Data", 
        title = "Followers & Average Viewership", 
@@ -202,8 +201,7 @@ pred_data %>%
   ggplot(aes(x = log_followers, 
              y = .resid)) +
   geom_jitter(alpha = 0.4) + 
-  geom_hline(yintercept = 0,
-             color = "red") +
+  geom_smooth(method = lm, se = FALSE, col = "orange") +
   theme_minimal() +
   labs(subtitle = "Residual Model and Raw Data", 
        title = "Followers & Residuals", 
@@ -224,10 +222,50 @@ Let's now look at regression using one categorical variable to predict one conti
 First, describe our variables of interest as we did above. I am going to give you less guidance here. I want you to explore:
 
 1)  The raw data
-2)  Summaries of the variables
-3)  Plot the variables
+
+```{r}
+twitch_data |>
+  select(average_viewers, followers) |>
+  sample_n(5)
+```
+
+```{r}
+twitch_data |>
+  group_by(language) |>
+  summarize(count = n()) |>
+  arrange(desc(count))
+```
+
+English is the most used language.
+
+1)  Summaries of the variables
+
+```{r}
+twitch_data |>
+  select(language, average_viewers) |>
+  summary(twitch_data)
+```
+
+There are 1000 streamers that are tracked using the "`language`" variable and the streamers have an average of 4781 viewers. There is a wide spectrum of "`average_viewers`" though with the lower end being 235 and the higher side being 147643.
+
+1)  Plot the variables
+
+```{r}
+ggplot(twitch_data, aes(x = log_viewers, y = language)) +
+  geom_boxplot(outlier.shape = NA) +
+  scale_x_log10() +
+  labs(title = "Average Viewership & Language", 
+       x = "Average Viewers", 
+       y = "Language")
+```
+
+**Answer:**
+
+Arabic and Spanish have the highest average viewers out of all the languages. On the lower end of the spectrum were Swedish, Finnish, Thai, and Czech.
 
 ## Question 5
+
+fit2 \<- lm(log_viewers \~ language, data = twitch_data)
 
 Now, we are ready to fit the model. Fit a linear regression where your outcome variable is `average_viewers` and your independent variable is `language`. Let me teach you another trick here. When your categorical variable has many categories it makes sense to establish your reference category *outside of the model*. This ensures that, when you are reading your coefficients, you know what you are comparing them to. Let's set `English` as our reference category.
 
