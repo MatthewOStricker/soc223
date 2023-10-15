@@ -213,7 +213,7 @@ What do you see? Are there any big residuals? DO they happen often in a particul
 
 **Answer:**
 
-I see there are a great number of residuals that are on the plot. They happen to mostly be in the range of 5-6 from log_followers, which notes how the model fails to predict part of our data.
+I see that this chart is providing a decent visualization of the number of the streamers' followers from the dataset. There a few big residuals that are sprinkled on the chart like the twitch streamer that is close to the `log(followers)` value of 4.
 
 ## Question 4
 
@@ -254,7 +254,7 @@ There are 1000 streamers that are tracked using the "`language`" variable and th
 ggplot(twitch_data, aes(x = log_viewers, y = language)) +
   geom_boxplot(outlier.shape = NA) +
   scale_x_log10() +
-  labs(title = "Average Viewership & Language", 
+  labs(title = "Average Viewership by Language Plot", 
        x = "Average Viewers", 
        y = "Language")
 ```
@@ -293,3 +293,19 @@ This shows that there are plenty of languages, such as Arabic, that have more `a
 ## Question 6
 
 Explore the residuals here using a similar plot as above. There are a couple of points our model really missed - which ones were they?
+
+```{r}
+pred_data2 <- augment(fit2)
+
+pred_data2 |>
+  ggplot(aes(x = average_viewers,
+             y = .resid)) +
+  geom_jitter() +
+  geom_line(aes(x = average_viewers, y = .fitted), col = "orange") +
+  scale_x_log10() +
+  labs(title = "Log Transformed Average Viewership vs. Residuals Plot", x = "Average Viewership", y = "Residuals")
+```
+
+**Answer:**
+
+The main point missed were the streamers who had more than 1e+05 (31,000) possessed a large residual value.
