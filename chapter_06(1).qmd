@@ -192,11 +192,27 @@ The reason why we would build a model that assumes parallel trends is due to "Oc
 
 Let's now think about a model that includes two continuous variables as explanatory variables. Here, we are still interested in predicting how `wage_percent_of_male` has changed across years. Let's start simple: build a model where `wage_percent_of_male` is the outcome variable and `year` is the explanatory variable and save it as `simple_fit`. Then, use `tidy()` to look at the model output. Briefly, describe the results.
 
+```{r}
+simple_fit <- lm(wage_percent_of_male ~ year, data = gender_employment)
+
+broom::tidy(simple_fit)
+```
+
+**Answer:**
+
+The results tell me that women only make a fraction of what men make in the starting year (82%); however, the percentage increases each year afterwards. This means that the wage gap will shrink over time.
+
 Let's add the other variable in there. We want a model that takes into account the variable `percent_female`. This variable records what percentage of the workforce of a given occupation is made up of women. The thinking behind this addition is that the proportion of women in an industry might affect how much the gender paygap has changed across the last few years.
 
 Before we build the model we want to explore the relationship between these variables. Like in the chapter, use `select()` and `cor()` to find the correlations between these three variables. Because we have some missing values, you want to give `cor()` the argument `use = "complete.obs"`.
 
 ``` r
+gender_employment %>% 
+  select(year, wage_percent_of_male, percent_female) %>% 
+  cor(use = "complete.obs")
+```
+
+```{r}
 gender_employment %>% 
   select(year, wage_percent_of_male, percent_female) %>% 
   cor(use = "complete.obs")
@@ -211,7 +227,23 @@ gender_employment %>%
 
 Describe the relationships between the variables.
 
+**Answer:**
+
+There is a positive correlation between `year` and `wage_percent_of_male`. However, there is little no correlation between `year` and `percent_female`, which states that the proportion of women in certain industries should little change during the time covered in the dataset. There is also a positive correlation between `wage_percent_of_male` and `percent_female` .
+
 What we want to to know, however, is the relationship between year and the paygap **conditional** on the proportion of women who work in an occupation. This is where the model described above comes handy. Build that model and save it as `multiple_fit`. Then, use `tidy()` to summarize the results. Describe the results in your own words. Is this what you would have expected?
+
+```{r}
+multiple_fit <- lm(wage_percent_of_male ~ year, data = gender_employment)
+
+broom::tidy(multiple_fit)
+```
+
+**Answer:**
+
+Every one year, there is an average increase of 0.1968% in women's earnings with respect to men's earnings when taking into account the explanatory variables in the `percent_female`model with each year. Additionally, there is an average increase of 0.0425% increase in women's earnings with respect to men's earnings when taking into account the explanatory variables in the `year` model with each increase by one unit.
+
+This is what I expected since I felt that women's wages will become closer to men's wages over time.
 
 ## Question 6
 
