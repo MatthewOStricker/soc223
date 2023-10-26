@@ -184,6 +184,10 @@ There are differences present in the estimates. The wage gap found in the `Compu
 
 Given that we have the ability to add interactions to models - i.e. to have slopes vary across categories -, why would we choose to build a model that assumes parallel trends?
 
+**Answer:**
+
+The reason why we would build a model that assumes parallel trends is due to "Occam's Razor" that states that we will only prefer a complex model over a simple one if complexity present is warranted. When there are marginal differences in the parallel trends for slopes, simple parallel trends models are preferred.
+
 ## Question 5
 
 Let's now think about a model that includes two continuous variables as explanatory variables. Here, we are still interested in predicting how `wage_percent_of_male` has changed across years. Let's start simple: build a model where `wage_percent_of_male` is the outcome variable and `year` is the explanatory variable and save it as `simple_fit`. Then, use `tidy()` to look at the model output. Briefly, describe the results.
