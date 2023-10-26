@@ -135,14 +135,17 @@ The model above assumes parallel trends. This means that we are telling the mode
 Let's check if this assumption is warranted. Using the code from the introductory section, make a similar plot but facet it by major category so that lines vary across categories. What do you notice? Is the parallel trends assumption warranted?
 
 ```{r}
+#| warning: false
+library(moderndive)
 gender_employment%>% 
-  ggplot(aes(x = year, y = wage_percent_of_male)) +
+  ggplot(aes(x = year, y = wage_percent_of_male, group = major_category, color = major_category)) +
   geom_jitter(alpha = 0.1) + 
   geom_smooth(method = "lm") + 
-  facet_wrap(~major_category) +
+  geom_parallel_slopes(se = FALSE) +
   labs(title = "Women's earnings with respect to men's", 
        y = "% of Men's Income", 
-       x = "Year")
+       x = "Year",
+       color = "Major Category")
 ```
 
 **Answer:**
@@ -153,6 +156,12 @@ Not all the trends are parallel as some lines have different slopes than others.
 
 Let's fit another model that includes an interaction between `major_category` and `year`. This will allow the slopes to differ across major categories. Again, use `tidy()` to get the summary of the results.
 
+```{r}
+interaction_model <- lm(wage_percent_of_male ~ year * major_category, data = gender_employment)
+
+broom::tidy(interaction_model)
+```
+
 Let's think a bit about what this model says with an equation. We are doubling our coefficients: we have betas for 7 of 8 categories and betas for their respective interaction. Our equation would look something like this:
 
 $$ \hat{y} = \beta_0 + \beta_1 \times \text{year} + \beta_2 \times \text{occ2} + \beta_3 \times \text{occ3}...+ \beta_8 \times \text{occ7}  + \beta_9  \times \text{occ2} \times \text{year} + \beta_{10} \times \text{occ3} \times \text{year}... \beta_{16} \times \text{occ7} \times \text{year}$$
@@ -162,6 +171,14 @@ What does this mean? Occupation 2 in our case is "Computer, Engineering, and Sci
 $$ \hat{y} = \beta_0 + \beta_1 \times 2016 + \beta_2  + \beta_9 \times 2016$$
 
 So tell me what the estimate would be for "Computer, Engineering, and Science" for 2016. What about the same estimate but for "Service"? Do you notice any differences?
+
+**Answer:**
+
+`Computer, Engineering, and Science` estimate for 2016: -1370.47 + 0.72(2016) + 1002.853 + -0.4946(2016) = 87.15%
+
+`Service` estimate for 2016: -1370.47 + 0.72(2016) + 2137.65 + -1.058(2016) = 86.07%
+
+There are differences present in the estimates. The wage gap found in the `Computer, Engineering, and Science` is marginally smaller than the wage gap found in the `Service` industry.
 
 ## Question 4
 
