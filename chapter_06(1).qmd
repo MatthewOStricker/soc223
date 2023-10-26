@@ -134,6 +134,21 @@ The model above assumes parallel trends. This means that we are telling the mode
 
 Let's check if this assumption is warranted. Using the code from the introductory section, make a similar plot but facet it by major category so that lines vary across categories. What do you notice? Is the parallel trends assumption warranted?
 
+```{r}
+gender_employment%>% 
+  ggplot(aes(x = year, y = wage_percent_of_male)) +
+  geom_jitter(alpha = 0.1) + 
+  geom_smooth(method = "lm") + 
+  facet_wrap(~major_category) +
+  labs(title = "Women's earnings with respect to men's", 
+       y = "% of Men's Income", 
+       x = "Year")
+```
+
+**Answer:**
+
+Not all the trends are parallel as some lines have different slopes than others. This means the assumption is not warranted. There are some categories above that are stagnant and others that rising my a marginal amount.
+
 ## Question 3
 
 Let's fit another model that includes an interaction between `major_category` and `year`. This will allow the slopes to differ across major categories. Again, use `tidy()` to get the summary of the results.
