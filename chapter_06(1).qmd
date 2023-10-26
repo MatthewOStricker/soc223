@@ -26,6 +26,8 @@ glimpse(gender_employment)
 ```{r}
 #| message: false
 library(tidyverse)
+library(broom)
+library(moderndive)
 # Set our ggplot theme from the outset
 theme_set(theme_light())
 # Read in the data 
@@ -263,7 +265,27 @@ And then you can access the R squared, the same way you would access a column fr
 simple_glanced$r.squared
 ```
 
+```{r}
+glance(simple_fit)
+simple_glanced <- glance(simple_fit)
+simple_glanced$r.squared
+```
+
+```{r}
+glance(multiple_fit)
+multiple_glanced <- glance(multiple_fit)
+multiple_glanced$r.squared
+```
+
 Do this for both models and compare the R squared. What can you conclude from this?
+
+**Answer:**
+
+R squared value of `simple_fit` = .0005
+
+R squared value of `multiple_fit` = .0129
+
+Variance rises to 1.3% that is accounted for when the year and proportion of females in an industry are included.
 
 ## A warning sign
 
