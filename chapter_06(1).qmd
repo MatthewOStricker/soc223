@@ -236,7 +236,7 @@ There is a positive correlation between `year` and `wage_percent_of_male`. Howev
 What we want to to know, however, is the relationship between year and the paygap **conditional** on the proportion of women who work in an occupation. This is where the model described above comes handy. Build that model and save it as `multiple_fit`. Then, use `tidy()` to summarize the results. Describe the results in your own words. Is this what you would have expected?
 
 ```{r}
-multiple_fit <- lm(wage_percent_of_male ~ year, data = gender_employment)
+multiple_fit <- lm(wage_percent_of_male ~ year + percent_female, data = gender_employment)
 
 broom::tidy(multiple_fit)
 ```
@@ -297,6 +297,12 @@ random_numbers <- rnorm(n = nrow(gender_employment),
                         sd = 4)
 ```
 
+```{r}
+random_numbers <- rnorm(n = nrow(gender_employment), 
+                        mean = 0, 
+                        sd = 4)
+```
+
 Now, I will add this column and put it into our model:
 
 ``` r
@@ -306,4 +312,21 @@ gender_employment$random_noise <- random_numbers
 random_fit <- lm(wage_percent_of_male ~ year + percent_female + random_noise, data = gender_employment)
 ```
 
+```{r}
+gender_employment$random_noise <- random_numbers
+
+# New model 
+random_fit <- lm(wage_percent_of_male ~ year + percent_female + random_noise, data = gender_employment)
+```
+
 Examine the R squared for yourself and consider the implications of this little exercise!
+
+```{r}
+glance(random_fit)
+random_glanced <- glance(random_fit)
+random_glanced$r.squared
+```
+
+**Answer:**
+
+The R squared value for the random model is 0.0148, which is higher than the other two random models. This shows that adding variables to the model rises the R squared, which reinforces the importance of choosing predictors.
