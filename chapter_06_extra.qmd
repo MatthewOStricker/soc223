@@ -199,13 +199,27 @@ Using the multiple regression you just estimated, give me ridership predictions 
 
 You can do this manually (using R as a calculator) or you might find the following code useful. I'm not going to give you *all* the code, but this is a head start!
 
-``` r
+```{r}
 pred_df <- tibble(
   situation = 1:3,
   temp_c = c(25, 15, 10),
   wind_kph = c(15, 5, 40)
 )
+
+pred_df <- pred_df |>
+  mutate(expected_ridership = predict(additive_model, newdata = pred_df)) |>
+  select(situation, expected_ridership)
+
+pred_df
 ```
+
+**Answer:**
+
+Situation 1: 4225.65
+
+Situation 2: 2991.73
+
+Situation 3: 1581.08
 
 ## Question 7
 
