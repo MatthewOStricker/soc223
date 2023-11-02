@@ -95,6 +95,19 @@ bikes |>
 
 Using the approximation that a mile is equal to 1.61 kilometers, convert `windspeed` to kilometers per hour. Call the new variable `wind_kph` and add it to the `bikes` data frame. What is the correlation between wind speed in MPH and wind speed in KPH? Explain why in enough detail that I know you understand.
 
+```{r}
+bikes <- bikes |>
+    mutate(wind_kph = windspeed*1.61)
+```
+
+```{r}
+bikes |>
+  select(windspeed, wind_kph) |>
+  cor()
+```
+
+**Answer:** The correlation between wind speed in MPH is one, and the correlation between wind speed in KPH is also one. This is due to the fact that the two variables are the same.
+
 ## Question 3
 
 Estimate two simple regressions:
