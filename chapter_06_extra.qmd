@@ -115,16 +115,20 @@ Estimate two simple regressions:
 -   predict rides as a function of wind speed in MPH
 
 ```{r}
+#Fit regression model
 simple_MPH <- lm(rides ~ windspeed, data = bikes)
 
+#Get regression table
 broom::tidy(simple_MPH)
 ```
 
 -   predict rides as a function of wind speed in KPH
 
 ```{r}
+#Fit regression model
 simple_KPH <- lm(rides ~ wind_kph, data = bikes)
 
+#Get regression table
 broom::tidy(simple_KPH)
 ```
 
@@ -158,17 +162,32 @@ pred_df_simple_MPH <- pred_df_simple_MPH |>
 pred_df_simple_MPH
 ```
 
-**Answer:** The predicted ridership if the wind is blowing at 20 MPH would be 3095 rides.
+**Answer:** The predicted ridership if the wind is blowing at 20 MPH would be 3095 rides (rounded to nearest tenth).
 
 ## Question 5
 
 Let's get more realistic and move to multiple regression. We're going to use `temp_feel` in addition to wind speed. But we don't want to use Fahrenheit. So make a new variable called `temp_c` that is a conversion of `temp_feel` to Celsius and add it to the `bikes` dataframe. (You may have to look up how to do this conversion.)
 
+```{r}
+bikes <- bikes |>
+  mutate(temp_c = 5/9 * (temp_feel - 32))
+```
+
 With this new variable, estimate a multiple regression that predicts rides as an additive function of `wind_kph` and `temp_c` (that is, no interaction). Interpret both of the slope coefficients using the following language:
 
 "For a \_\_\_\_\_ increase in \_\_\_\_\_, the model expects a \_\_\_\_\_ increase in \_\_\_\_\_."
 
+```{r}
+#Fit regression model
+additive_model <- lm(rides ~ wind_kph + temp_c, data = bikes)
+
+#Get regression table
+broom::tidy(additive_model)
+```
+
 Now interpret the intercept.
+
+**Answer:** For a 1 degree in celsius increase in temperatue, the model expects a 143.23 increase in in rides. For a 1 kilometer per hour increase in wind speed, the model expects a 19.84 decrease in in rides. When no wind speed is present and the temperature is at freezing point (0 degrees celsius), the model expects 942 rides.
 
 ## Question 6
 
