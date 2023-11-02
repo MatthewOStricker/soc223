@@ -272,4 +272,4 @@ regression_p |>
   arrange(residual)
 ```
 
-**Answer:** The date with the *largest absolute residual* was 10/29/2012 with a residual of -3490.348. When I looked that day up, I saw that it was the same day as Hurricane Sandy hitting the United States. The harsh weather that likely appeared at Washington D.C. drastically reduced the amount of people riding bikes on that day.
+**Answer:** The date with the *largest absolute residual* was 10/29/2012 with a residual of -3490.348. When I looked that day up, I saw that it was the same day as Hurricane Sandy hitting the United States. The harsh weather that likely appeared at Washington D.C. drastically reduced the amount of people riding bikes on that day to 20.
