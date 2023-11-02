@@ -147,7 +147,18 @@ pred_df_simple_KPH <- pred_df_simple_KPH |>
 pred_df_simple_KPH
 ```
 
-**Answer:** The predicted ridership if the wind is blowing at 20 MPH would be 3515 rides.
+**Answer:** The predicted ridership if the wind is blowing at 20 KPH would be 3515 rides.
+
+```{r}
+pred_df_simple_MPH <- tribble(~windspeed, 20)
+
+pred_df_simple_MPH <- pred_df_simple_MPH |>
+  mutate(exp_rides = predict(simple_MPH, newdata = pred_df_simple_MPH)) |>
+  select(exp_rides)
+pred_df_simple_MPH
+```
+
+**Answer:** The predicted ridership if the wind is blowing at 20 MPH would be 3095 rides.
 
 ## Question 5
 
