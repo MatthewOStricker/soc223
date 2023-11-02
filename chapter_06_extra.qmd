@@ -75,6 +75,22 @@ Before analyzing a dataset, it's good to know some stuff about it. Answer the fo
 
 What is the correlation between number of rides and what the temperature feels like (in Fahrenheit)? What is the correlation between the number of rides and wind speed (miles per hour)?
 
+```{r}
+bikes |>
+  select(rides, temp_feel) |>
+  cor()
+```
+
+**Answer:** There is a positive correlation of .582 between number of rides and what the temperature feels like in Fahrenheit.
+
+```{r}
+bikes |>
+  select(rides, windspeed) |>
+  cor()
+```
+
+**Answer:** There is a negative correlation of -.195 between number of rides and the wind speed in miles per hour.
+
 ## Question 2
 
 Using the approximation that a mile is equal to 1.61 kilometers, convert `windspeed` to kilometers per hour. Call the new variable `wind_kph` and add it to the `bikes` data frame. What is the correlation between wind speed in MPH and wind speed in KPH? Explain why in enough detail that I know you understand.
