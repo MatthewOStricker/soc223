@@ -113,9 +113,26 @@ bikes |>
 Estimate two simple regressions:
 
 -   predict rides as a function of wind speed in MPH
+
+```{r}
+simple_MPH <- lm(rides ~ windspeed, data = bikes)
+
+broom::tidy(simple_MPH)
+```
+
 -   predict rides as a function of wind speed in KPH
 
+```{r}
+simple_KPH <- lm(rides ~ wind_kph, data = bikes)
+
+broom::tidy(simple_KPH)
+```
+
 Use `get_regression_table()` or `broom::tidy()` to display the results. This will give you two sets of an intercept and a slope. If any coefficients are the same between models, explain why. If any coefficients are different between models, explain why. Make sure to give me enough detail to convince me you understand.
+
+**Answer:** For the first regression (wind in mph), it shows that each 1 mph increase in wind speed produces 56 fewer bike rides. For the second regression (wind in kph), it shows that each 1 kph increase in wind speed produces 34 fewer bike rides.
+
+The coefficients are different between models because the units of one is in miles per hour for one predictor and in kilometers per hour for the other. The intercepts are equal, which means they have equal origins. Also, the slope coefficients are numerically different due to the different units selected, but can be set equal to each other if the units are converted to like terms.
 
 ## Question 4
 
