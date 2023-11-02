@@ -33,7 +33,6 @@ glimpse(bikes)
 
 ```{r}
 #| message: false
-install.packages("bayesrules")
 data(bikes, package = "bayesrules")
 glimpse(bikes)
 ```
