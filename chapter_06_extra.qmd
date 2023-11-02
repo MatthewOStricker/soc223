@@ -239,6 +239,29 @@ broom::tidy(additive_model_weekend)
 
 If the temperature and the wind speed are average, what is the expected ridership for a weekend day? What is the expected ridership for a weekday? Show the code that gets you your answers.
 
+```{r}
+avg_sets <- bikes |>
+  summarise(avg_temp = mean(temp_c),
+            avg_windspeed = mean(wind_kph))
+avg_sets
+```
+
+```{r}
+pred_wknd <- avg_sets |>
+  mutate(rs = 1214.80251 - 20.38598*avg_windspeed + 140.33863*avg_temp - 713.57504) |>
+  select(rs)
+
+pred_wknd
+```
+
+```{r}
+pred_wday <- avg_sets |>
+  mutate(rs = 1214.80251 - 20.38598*avg_windspeed + 140.33863*avg_temp) |>
+  select(rs)
+
+pred_wday
+```
+
 ## Question 9
 
 You can use `get_regression_points()` or `predict()` to see how the model did at predicting each individual value of `rides`. Use one of these functions to find the date with the *largest absolute residual*. That is, find the day where the model is most wrong about predicted ridership. Why is the model so wrong about this day? (There is a correct answer here.)
