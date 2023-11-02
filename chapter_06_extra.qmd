@@ -132,11 +132,22 @@ Use `get_regression_table()` or `broom::tidy()` to display the results. This wil
 
 **Answer:** For the first regression (wind in mph), it shows that each 1 mph increase in wind speed produces 56 fewer bike rides. For the second regression (wind in kph), it shows that each 1 kph increase in wind speed produces 34 fewer bike rides.
 
-The coefficients are different between models because the units of one is in miles per hour for one predictor and in kilometers per hour for the other. The intercepts are equal, which means they have equal origins. Also, the slope coefficients are numerically different due to the different units selected, but can be set equal to each other if the units are converted to like terms.
+The coefficients are different between models because the units of one is in miles per hour for one predictor and in kilometers per hour for the other. The intercepts are equal, which means they have equal origins. Also, the slope coefficients are numerically different due to the different units selected, but can be set equal to each other if the units are converted to like terms. For instance, a mile is equal to 1.61 kilometers, so the slope for wind-speed in MPH should be the slope for wind-speed in KPH, divided by 1.61. (55.52268/1.61 = -34.48614)
 
 ## Question 4
 
 Using the models from above, tell me what the predicted ridership would be if the wind is blowing at 20 KPH. What would the predicted ridership be if the wind is blowing at 20 MPH?
+
+```{r}
+pred_df_simple_KPH <- tribble(~wind_kph, 20)
+
+pred_df_simple_KPH <- pred_df_simple_KPH |>
+  mutate(exp_rides = predict(simple_KPH, newdata = pred_df_simple_KPH)) |>
+  select(exp_rides)
+pred_df_simple_KPH
+```
+
+**Answer:** The predicted ridership if the wind is blowing at 20 MPH would be 3515 rides.
 
 ## Question 5
 
