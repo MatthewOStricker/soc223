@@ -1,0 +1,24 @@
+---
+title: "Project Idea"
+author: "Matthew O'Stricker"
+embed-resources: true
+format: html
+editor: visual
+---
+
+## Topic for Project
+
+For my final project, I plan to answer the research question "What impact did the COVID-19 pandemic have on voter registration in the United States during the 2020 election?". To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state. To measure the impact, I plan to compare the monthly trends for each state during the 2016 and 2020 election cycle to see if I can spot any key differences.
+
+```{r}
+#| message: false
+library(tidyverse)
+theme_set(theme_light())
+voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/new-voter-registrations.csv")
+covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
+glimpse(voter_registration)
+```
+
+```{r}
+glimpse(covid_cases)
+```
