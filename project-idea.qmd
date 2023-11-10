@@ -16,9 +16,31 @@ library(tidyverse)
 theme_set(theme_light())
 voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/new-voter-registrations.csv")
 covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
+state_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Weekly_United_States_COVID-19_Cases_and_Deaths_by_State_-_ARCHIVED_20231109.csv")
 glimpse(voter_registration)
 ```
 
 ```{r}
 glimpse(covid_cases)
 ```
+
+```{r}
+glimpse(state_cases)
+```
+
+```{r}
+state_cases <- state_cases |>
+  mutate(date_updated = mdy(date_updated), 
+         start_date = mdy(start_date), 
+         end_date = mdy(end_date))
+```
+
+```{r}
+state_cases <- state_cases |>
+  filter(start_date <= as.Date("2020-11-07"))
+```
+
+1.  General b/t 16 - 20
+2.  Get all states covid data for 2020
+    1.  Figure out what month is the highest peak for each state
+    2.  lm(newvoter \~ octpeak)
