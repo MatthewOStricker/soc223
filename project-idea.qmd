@@ -13,10 +13,12 @@ For my final project, I plan to answer the research question "What impact did th
 ```{r}
 #| message: false
 library(tidyverse)
+library(scales)
 theme_set(theme_light())
 voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/new-voter-registrations.csv")
 covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
 state_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Weekly_United_States_COVID-19_Cases_and_Deaths_by_State_-_ARCHIVED_20231109.csv")
+us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/united-states-population.csv")
 glimpse(voter_registration)
 ```
 
@@ -37,10 +39,32 @@ state_cases <- state_cases |>
 
 ```{r}
 state_cases <- state_cases |>
-  filter(start_date <= as.Date("2020-11-07"))
+  filter(start_date <= as.Date("2020-05-31"))
 ```
 
 1.  General b/t 16 - 20
 2.  Get all states covid data for 2020
     1.  Figure out what month is the highest peak for each state
     2.  lm(newvoter \~ octpeak)
+
+# 1. Introduction
+
+COVID-19 took the world by storm in 2020 and greatly altered so many key aspects of our daily lives. Outside of the many lives that were taken by the disease, the global pandemic created a shift in the very fabric of American democracy due to the implications it had on the U.S. presidential elections. The U.S. presidential election is a historic staple in American democracy that ultimately decides who will become the leader of the "free world" for the next four years. With the U.S. seeing a constant slight rise in recent years, the expectation is that there would be a constant rise in voter registration in the presidential elections.
+
+To better analyze to see if this occurred and what caused the results that will be found, I plan to answer the research question "What impact did the COVID-19 pandemic have on voter registration in the United States during the 2020 election?". To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state. To measure the impact, I plan to compare the monthly trends for each state during the 2016 and 2020 election cycle to see if I can spot any key differences.
+
+Since COVID started to gain large traction in the United States in the earlier months of the year 2020, I will be focusing my analysis on Jan-May for the year 2020 and comparing that with the months Jan-May in 2016. The impacts of COVID, which was identified as a global pandemic and passed more than 100,000 deaths in the U.S., were apparent and we should be able to assess what impact, if any, it had on the voter registration in the country. (source: <https://www.usatoday.com/in-depth/news/nation/2020/04/21/coronavirus-updates-how-covid-19-unfolded-u-s-timeline/2990956001/>)
+
+# 2.  Exploratory Data Analysis
+
+```{r}
+ggplot(us_population, aes(x = date, y = Population)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Population Growth in the United States (2016-2020)",
+       x = "Year",
+       y = "Population") +
+  scale_y_continuous(labels = comma)
+```
+
+Data shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States.
