@@ -74,7 +74,8 @@ Data shows that the population in the United States has been growing at a steady
 ```{r}
   state_cases$end_date <- as.Date(state_cases$end_date)
   
-  state_cases$Month <- floor_date(state_cases$end_date, unit = "month")
+  
+  state_cases$Month <- month(ymd(state_cases$end_date), label = TRUE) 
   
   summary_cases <- state_cases |>
     group_by(state, Month) |>
@@ -88,3 +89,14 @@ Data shows that the population in the United States has been growing at a steady
   print(summary_cases)
   
 ```
+
+```{r}
+
+ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
+  geom_bar(stat = "identity", fill = "red") +
+  labs(title = "Mean COVID-19 Cases by Month in the United States",
+       x = "State",
+       y = "Mean COVID Cases") 
+```
+
+Create boxplot for the top 4 states with highest mean cases. Then focus analysis on those. Also do key example of florida later on.
