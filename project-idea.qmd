@@ -76,4 +76,15 @@ Data shows that the population in the United States has been growing at a steady
   
   state_cases$Month <- floor_date(state_cases$end_date, unit = "month")
   
+  summary_cases <- state_cases |>
+    group_by(state, Month) |>
+    summarise(
+      Mean_cases = mean(new_cases),
+      median_cases = median(new_cases),
+      SD_cases = sd(new_cases)
+    ) |>
+    ungroup()
+  
+  print(summary_cases)
+  
 ```
