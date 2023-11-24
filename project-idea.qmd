@@ -14,6 +14,8 @@ For my final project, I plan to answer the research question "What impact did th
 #| message: false
 library(tidyverse)
 library(scales)
+library(dplyr)
+library(lubridate)
 theme_set(theme_light())
 voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/new-voter-registrations.csv")
 covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
@@ -68,3 +70,10 @@ ggplot(us_population, aes(x = date, y = Population)) +
 ```
 
 Data shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States.
+
+```{r}
+  state_cases$end_date <- as.Date(state_cases$end_date)
+  
+  state_cases$Month <- floor_date(state_cases$end_date, unit = "month")
+  
+```
