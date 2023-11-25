@@ -57,6 +57,8 @@ To better analyze to see if this occurred and what caused the results that will 
 
 Since COVID started to gain large traction in the United States in the earlier months of the year 2020, I will be focusing my analysis on Jan-May for the year 2020 and comparing that with the months Jan-May in 2016. The impacts of COVID, which was identified as a global pandemic and passed more than 100,000 deaths in the U.S., were apparent and we should be able to assess what impact, if any, it had on the voter registration in the country. (source: <https://www.usatoday.com/in-depth/news/nation/2020/04/21/coronavirus-updates-how-covid-19-unfolded-u-s-timeline/2990956001/>)
 
+Please note, per the CDC, where the COVID-19 cases data was collected, "New York State\'s reported case and death counts do not include New York City\'s counts as they separately report nationally notifiable conditions to CDC." This explains why there is info for NY and NYC.
+
 # 2.  Exploratory Data Analysis
 
 ```{r}
@@ -95,8 +97,21 @@ Data shows that the population in the United States has been growing at a steady
 ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
   geom_bar(stat = "identity", fill = "red") +
   labs(title = "Mean COVID-19 Cases by Month in the United States",
-       x = "State",
+       x = "Month",
        y = "Mean COVID Cases") 
 ```
 
 Create boxplot for the top 4 states with highest mean cases. Then focus analysis on those. Also do key example of florida later on.
+
+```{r}
+
+four_states <- summary_cases |>
+  filter(state == "")
+
+ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
+  geom_boxplot(fill = "cyan") +
+  labs(title = "Mean COVID-19 Cases by Month in the United States",
+       x = "State",
+       y = "Mean COVID Cases")+
+  facet_wrap(~state)
+```
