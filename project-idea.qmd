@@ -85,6 +85,8 @@ Since COVID started to gain large traction in the United States in the earlier m
 
 Please note, per the CDC, where the COVID-19 cases data was collected, "New York State\'s reported case and death counts do not include New York City\'s counts as they separately report nationally notifiable conditions to CDC." This explains why there is info for NY and NYC.
 
+Additionally, only 11 states and Washington D.C. will be included in the datasets because those were the only places where fivethirtyeight was able to get data on new registered voters. I could not find any supplemental data for the other states. However, I believe the 12 jurisdictions will be able to accurately answer the aformentioned question.
+
 # 2.  Exploratory Data Analysis
 
 ```{r}
