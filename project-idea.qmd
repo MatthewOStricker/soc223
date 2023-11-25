@@ -22,6 +22,12 @@ covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc2
 state_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Weekly_United_States_COVID-19_Cases_and_Deaths_by_State_-_ARCHIVED_20231109.csv")
 us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/united-states-population.csv")
 glimpse(voter_registration)
+
+colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
+
+month_order <- c("Jan", "Feb", "Mar", "Apr", "May")
+
+voter_registration$Month <- factor(voter_registration$Month, levels = month_order)
 ```
 
 ```{r}
@@ -106,12 +112,21 @@ Create boxplot for the top 4 states with highest mean cases. Then focus analysis
 ```{r}
 
 four_states <- summary_cases |>
-  filter(state == "")
+  filter(state == "NY" | state == "FL" | state == "NJ" | state == "GA")
 
-ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
-  geom_boxplot(fill = "cyan") +
+ggplot(four_states, aes(x = state, y = Mean_cases)) +
+  geom_boxplot() +
   labs(title = "Mean COVID-19 Cases by Month in the United States",
        x = "State",
-       y = "Mean COVID Cases")+
-  facet_wrap(~state)
+       y = "Mean COVID Cases")
+```
+
+```{r}
+ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)))+
+  geom_bar(stat = "identity") +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  facet_wrap(~Year) +
+  labs(title = "Comparing the New Registered Voters in 2016 to 2020 from Jan-May",
+       fill = "Year",
+       y = "New Registered Voters")
 ```
