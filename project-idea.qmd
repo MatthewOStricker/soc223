@@ -16,12 +16,16 @@ library(tidyverse)
 library(scales)
 library(dplyr)
 library(lubridate)
+library(broom)
+library(moderndive)
 theme_set(theme_light())
 voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/new-voter-registrations.csv")
 covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
 state_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Weekly_United_States_COVID-19_Cases_and_Deaths_by_State_-_ARCHIVED_20231109.csv")
 us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/united-states-population.csv")
 glimpse(voter_registration)
+florida_ex <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Type%20of%20Registration.csv")
+fl_tot <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Voter%20Registration%20Applications%20Received%20by%20Source%20and%20County%202020%20total.csv")
 
 colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
 
@@ -29,8 +33,10 @@ month_order <- c("Jan", "Feb", "Mar", "Apr", "May")
 
 voter_registration$Month <- factor(voter_registration$Month, levels = month_order)
 
+florida_ex$Month <- factor(florida_ex$Month, levels = month_order)
+
 voter_registration <- voter_registration |>
-  filter(Month == "Apr" | Month == "Jan" | Month == "Feb" | Month == "Mar") 
+  filter(Month == "Jan" | Month == "Feb" | Month == "Mar" | Month == "Apr" ) 
 
 names(state_cases)[names(state_cases) == "state"] <- "State"
 
@@ -44,6 +50,8 @@ state_abb <- data.frame(
   StateAbb = state.abb,
   stringAsFactors = FALSE
 )
+
+fl_tot <- fl_tot[-c(68, 69),]
 
 voter_registration$State <- state_abb$StateAbb[match(voter_registration$State, state_abb$StateName)]
 
@@ -68,6 +76,12 @@ state_cases <- state_cases |>
 ```{r}
 state_cases <- state_cases |>
   filter(start_date <= as.Date("2020-05-31"))
+
+  state_cases$end_date <- as.Date(state_cases$end_date)
+  state_cases$Month <- month(ymd(state_cases$end_date), label = TRUE) 
+  
+state_cases <- state_cases |>
+    filter(Month == "Apr" | Month == "Jan" | Month == "Feb" | Month == "Mar")
 ```
 
 1.  General b/t 16 - 20
@@ -102,9 +116,6 @@ ggplot(us_population, aes(x = date, y = Population)) +
 Data shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States.
 
 ```{r}
-  state_cases$end_date <- as.Date(state_cases$end_date)
-  state_cases$Month <- month(ymd(state_cases$end_date), label = TRUE) 
-  
   summary_cases <- state_cases |>
     group_by(State, Month) |>
     summarise(
@@ -142,12 +153,89 @@ ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)
 ```
 
 ```{r}
+state_cases_reduced <- state_cases |>
+  group_by(State, Month) |>
+  summarise(TotalNewCases = sum(new_cases))
+```
 
+```{r}
 COVID_Voter_2020 <- voter_registration |>
   filter(Year == "2020") 
 
 COVID_Voter_2020$Year<- NULL
 
-combined_COVID_Voter_2020 <- merge(COVID_Voter_2020, summary_cases, by = c("State", "Month"), all = TRUE)
+combined_COVID_Voter_2020 <- merge(COVID_Voter_2020, state_cases, by = c("State", "Month"), all = TRUE)
+
+logtest <- combined_COVID_Voter_2020 |>
+  filter(!(Month %in% c("Jan", "Feb")))
+
+logtest <- logtest |>
+  mutate(log_voters = log10(NewRVoters), 
+         log_cases = log10(tot_cases)) 
+
+ggplot(logtest, aes(x = log_cases, y = log_voters))+
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  scale_y_continuous(limits = c(0, 10))
+```
+
+```{r}
+ggplot(state_cases, aes(x = tot_cases, y = tot_deaths))+
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+fit1 <- lm(log_cases ~ log_voters, data = logtest) 
+
+get_regression_table(fit1)
+```
+
+```{r}
+coefficients <- coef(fit1)
+print(coefficients)
+```
+
+```{r}
+pred_data <- augment(fit1)
+
+# glimpse our new data 
+glimpse(pred_data)
+```
+
+```{r}
+ggplot(pred_data, aes(x = log_cases, y = log_voters))+
+  geom_point() +
+  geom_line(aes(x = log_cases, y = .fitted), col = "orange") +
+  scale_y_continuous(limits = c(0, 10))
+```
+
+```{r}
+ggplot(pred_data, aes(x = log_cases, y = .resid))+
+  geom_point() +
+   geom_smooth(method = lm, se = FALSE, col = "orange") +
+  scale_y_continuous(limits = c(0, 2))
+```
+
+```{r}
+florida_ex <- florida_ex |>
+  pivot_longer(cols = c(InPerson, Remote), names_to = "Variable", values_to = "Value")
+
+ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)) +
+  geom_line(linewidth = 1.5)
+```
+
+```{r}
+fl <- state_cases_reduced |>
+  filter(State == "FL")
+
+COVID_FL <- merge(florida_ex, fl, by = c("Month"), all = TRUE)
+
+ggplot(COVID_FL, aes(x = InPerson, y = TotalNewCases))+
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  scale_y_log10()
+  
+
 
 ```
