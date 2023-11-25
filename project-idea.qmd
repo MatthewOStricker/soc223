@@ -28,6 +28,26 @@ colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
 month_order <- c("Jan", "Feb", "Mar", "Apr", "May")
 
 voter_registration$Month <- factor(voter_registration$Month, levels = month_order)
+
+voter_registration <- voter_registration |>
+  filter(Month == "Apr" | Month == "Jan" | Month == "Feb" | Month == "Mar") 
+
+names(state_cases)[names(state_cases) == "state"] <- "State"
+
+  
+state_cases <- state_cases |>
+  filter(State == "AZ" | State == "CO" | State == "DE" | State == "DC" | State == "CA" | State == "DC"| State == "FL"| State == "GA"| State == "IL"| State == "MD"| State == "NC"| State == "TX"| State == "VA")
+
+
+state_abb <- data.frame(
+  StateName = state.name,
+  StateAbb = state.abb,
+  stringAsFactors = FALSE
+)
+
+voter_registration$State <- state_abb$StateAbb[match(voter_registration$State, state_abb$StateName)]
+
+voter_registration$State <- ifelse(is.na(voter_registration$State), "DC", voter_registration$State)
 ```
 
 ```{r}
@@ -81,18 +101,18 @@ Data shows that the population in the United States has been growing at a steady
 
 ```{r}
   state_cases$end_date <- as.Date(state_cases$end_date)
-  
-  
   state_cases$Month <- month(ymd(state_cases$end_date), label = TRUE) 
   
   summary_cases <- state_cases |>
-    group_by(state, Month) |>
+    group_by(State, Month) |>
     summarise(
       Mean_cases = mean(new_cases),
       median_cases = median(new_cases),
-      SD_cases = sd(new_cases)
+      SD_cases = sd(new_cases),
     ) |>
+    filter(Month <= "Apr") |>
     ungroup()
+  
   
   print(summary_cases)
   
@@ -110,18 +130,6 @@ ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
 Create boxplot for the top 4 states with highest mean cases. Then focus analysis on those. Also do key example of florida later on.
 
 ```{r}
-
-four_states <- summary_cases |>
-  filter(state == "NY" | state == "FL" | state == "NJ" | state == "GA")
-
-ggplot(four_states, aes(x = state, y = Mean_cases)) +
-  geom_boxplot() +
-  labs(title = "Mean COVID-19 Cases by Month in the United States",
-       x = "State",
-       y = "Mean COVID Cases")
-```
-
-```{r}
 ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)))+
   geom_bar(stat = "identity") +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
@@ -129,4 +137,15 @@ ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)
   labs(title = "Comparing the New Registered Voters in 2016 to 2020 from Jan-May",
        fill = "Year",
        y = "New Registered Voters")
+```
+
+```{r}
+
+COVID_Voter_2020 <- voter_registration |>
+  filter(Year == "2020") 
+
+COVID_Voter_2020$Year<- NULL
+
+combined_COVID_Voter_2020 <- merge(COVID_Voter_2020, summary_cases, by = c("State", "Month"), all = TRUE)
+
 ```
