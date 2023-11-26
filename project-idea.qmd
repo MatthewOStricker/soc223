@@ -26,6 +26,7 @@ us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/so
 glimpse(voter_registration)
 florida_ex <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Type%20of%20Registration.csv")
 fl_tot <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Voter%20Registration%20Applications%20Received%20by%20Source%20and%20County%202020%20total.csv")
+fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/FLCovid20.csv")
 
 colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
 
@@ -50,8 +51,6 @@ state_abb <- data.frame(
   StateAbb = state.abb,
   stringAsFactors = FALSE
 )
-
-fl_tot <- fl_tot[-c(68, 69),]
 
 voter_registration$State <- state_abb$StateAbb[match(voter_registration$State, state_abb$StateName)]
 
@@ -229,12 +228,9 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)
 fl <- state_cases_reduced |>
   filter(State == "FL")
 
-COVID_FL <- merge(florida_ex, fl, by = c("Month"), all = TRUE)
-
 ggplot(COVID_FL, aes(x = InPerson, y = TotalNewCases))+
   geom_point() +
-  geom_smooth(method = lm, se = FALSE) +
-  scale_y_log10()
+  geom_smooth(method = lm, se = FALSE)
   
 
 
