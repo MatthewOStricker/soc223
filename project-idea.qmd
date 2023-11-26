@@ -26,7 +26,7 @@ us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/so
 glimpse(voter_registration)
 florida_ex <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Type%20of%20Registration.csv")
 fl_tot <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Voter%20Registration%20Applications%20Received%20by%20Source%20and%20County%202020%20total.csv")
-fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/FLCovid20.csv")
+fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Use%20this%20for%20FLCV20")
 
 colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
 
