@@ -1,0 +1,269 @@
+County ,Month,Total
+Alachua ,Jan,0
+Alachua ,Feb,0
+Alachua ,Mar,652
+Alachua ,Apr,5697
+Baker ,Jan,0
+Baker ,Feb,0
+Baker ,Mar,60
+Baker ,Apr,492
+Bay ,Jan,0
+Bay ,Feb,0
+Bay ,Mar,40
+Bay ,Apr,1323
+Bradford ,Jan,0
+Bradford ,Feb,0
+Bradford ,Mar,13
+Bradford ,Apr,890
+Brevard ,Jan,0
+Brevard ,Feb,0
+Brevard ,Mar,210
+Brevard ,Apr,5139
+Broward ,Jan,0
+Broward ,Feb,0
+Broward ,Mar,7234
+Broward ,Apr,100862
+Calhoun ,Jan,0
+Calhoun ,Feb,0
+Calhoun ,Mar,1
+Calhoun ,Apr,147
+Charlotte ,Jan,0
+Charlotte ,Feb,0
+Charlotte ,Mar,115
+Charlotte ,Apr,3815
+Citrus ,Jan,0
+Citrus ,Feb,0
+Citrus ,Mar,149
+Citrus ,Apr,2156
+Clay,Jan,0
+Clay,Feb,0
+Clay,Mar,251
+Clay,Apr,5468
+Collier,Jan,0
+Collier,Feb,0
+Collier,Mar,922
+Collier,Apr,11930
+Columbia,Jan,0
+Columbia,Feb,0
+Columbia,Mar,28
+Columbia,Apr,945
+DeSoto,Jan,0
+DeSoto,Feb,0
+DeSoto,Mar,43
+DeSoto,Apr,610
+Dixie,Jan,0
+Dixie,Feb,0
+Dixie,Mar,0
+Dixie,Apr,85
+Duval,Jan,0
+Duval,Feb,0
+Duval,Mar,1086
+Duval,Apr,21771
+Escambia,Jan,0
+Escambia,Feb,0
+Escambia,Mar,334
+Escambia,Apr,8583
+Flagler,Jan,0
+Flagler,Feb,0
+Flagler,Mar,93
+Flagler,Apr,2004
+Franklin,Jan,0
+Franklin,Feb,0
+Franklin,Mar,0
+Franklin,Apr,54
+Gadsden,Jan,0
+Gadsden,Feb,0
+Gadsden,Mar,14
+Gadsden,Apr,1247
+Gilchrist,Jan,0
+Gilchrist,Feb,0
+Gilchrist,Mar,0
+Gilchrist,Apr,91
+Glades,Jan,0
+Glades,Feb,0
+Glades,Mar,7
+Glades,Apr,137
+Gulf,Jan,0
+Gulf,Feb,0
+Gulf,Mar,0
+Gulf,Apr,30
+Hamilton,Jan,0
+Hamilton,Feb,0
+Hamilton,Mar,0
+Hamilton,Apr,88
+Hardee,Jan,0
+Hardee,Feb,0
+Hardee,Mar,10
+Hardee,Apr,156
+Hendry,Jan,0
+Hendry,Feb,0
+Hendry,Mar,134
+Hendry,Apr,1028
+Hernando,Jan,0
+Hernando,Feb,0
+Hernando,Mar,76
+Hernando,Apr,2096
+Highlands,Jan,0
+Highlands,Feb,0
+Highlands,Mar,1840
+Highlands,Apr,1749
+Hillsborough,Jan,0
+Hillsborough,Feb,0
+Hillsborough,Mar,2
+Hillsborough,Apr,24501
+Holmes,Jan,0
+Holmes,Feb,0
+Holmes,Mar,171
+Holmes,Apr,143
+Indian River,Jan,0
+Indian River,Feb,0
+Indian River,Mar,16
+Indian River,Apr,2234
+Jackson,Jan,0
+Jackson,Feb,0
+Jackson,Mar,0
+Jackson,Apr,241
+Jefferson,Jan,0
+Jefferson,Feb,0
+Jefferson,Mar,0
+Jefferson,Apr,496
+Lafayette,Jan,0
+Lafayette,Feb,0
+Lafayette,Mar,322
+Lafayette,Apr,23
+Lake,Jan,0
+Lake,Feb,0
+Lake,Mar,1043
+Lake,Apr,5118
+Lee,Jan,0
+Lee,Feb,0
+Lee,Mar,152
+Lee,Apr,20175
+Leon,Jan,0
+Leon,Feb,0
+Leon,Mar,8
+Leon,Apr,4156
+Levy,Jan,0
+Levy,Feb,0
+Levy,Mar,0
+Levy,Apr,274
+Liberty,Jan,0
+Liberty,Feb,0
+Liberty,Mar,0
+Liberty,Apr,41
+Madison,Jan,0
+Madison,Feb,0
+Madison,Mar,363
+Madison,Apr,677
+Manatee,Jan,0
+Manatee,Feb,0
+Manatee,Mar,120
+Manatee,Apr,9585
+Marion,Jan,0
+Marion,Feb,0
+Marion,Mar,156
+Marion,Apr,3130
+Martin,Jan,0
+Martin,Feb,0
+Martin,Mar,9865
+Martin,Apr,3870
+Miami-Dade,Jan,0
+Miami-Dade,Feb,0
+Miami-Dade,Mar,150
+Miami-Dade,Apr,237806
+Monroe,Jan,0
+Monroe,Feb,0
+Monroe,Mar,61
+Monroe,Apr,1879
+Nassau,Jan,0
+Nassau,Feb,0
+Nassau,Mar,286
+Nassau,Apr,1131
+Okaloosa,Jan,0
+Okaloosa,Feb,0
+Okaloosa,Mar,0
+Okaloosa,Apr,3247
+Okeechobee,Jan,0
+Okeechobee,Feb,0
+Okeechobee,Mar,1763
+Okeechobee,Apr,182
+Orange,Jan,0
+Orange,Feb,0
+Orange,Mar,652
+Orange,Apr,31092
+Osceola,Jan,0
+Osceola,Feb,0
+Osceola,Mar,2722
+Osceola,Apr,10591
+Palm Beach,Jan,0
+Palm Beach,Feb,0
+Palm Beach,Mar,287
+Palm Beach,Apr,56034
+Pasco,Jan,0
+Pasco,Feb,0
+Pasco,Mar,952
+Pasco,Apr,5181
+Pinellas,Jan,0
+Pinellas,Feb,0
+Pinellas,Mar,346
+Pinellas,Apr,15620
+Polk,Jan,0
+Polk,Feb,0
+Polk,Mar,87
+Polk,Apr,8765
+Putnam,Jan,0
+Putnam,Feb,0
+Putnam,Mar,442
+Putnam,Apr,1525
+St. Johns,Jan,0
+St. Johns,Feb,0
+St. Johns,Mar,168
+St. Johns,Apr,5206
+St. Lucie,Jan,0
+St. Lucie,Feb,0
+St. Lucie,Mar,183
+St. Lucie,Apr,5008
+Santa Rosa,Jan,0
+Santa Rosa,Feb,0
+Santa Rosa,Mar,473
+Santa Rosa,Apr,3329
+Sarasota,Jan,0
+Sarasota,Feb,0
+Sarasota,Mar,582
+Sarasota,Apr,7300
+Seminole,Jan,0
+Seminole,Feb,0
+Seminole,Mar,286
+Seminole,Apr,8339
+Sumter,Jan,0
+Sumter,Feb,0
+Sumter,Mar,10
+Sumter,Apr,3749
+Suwannee,Jan,0
+Suwannee,Feb,0
+Suwannee,Mar,0
+Suwannee,Apr,2246
+Taylor,Jan,0
+Taylor,Feb,0
+Taylor,Mar,1
+Taylor,Apr,43
+Union,Jan,0
+Union,Feb,0
+Union,Mar,484
+Union,Apr,73
+Volusia,Jan,0
+Volusia,Feb,0
+Volusia,Mar,3
+Volusia,Apr,8265
+Wakulla,Jan,0
+Wakulla,Feb,0
+Wakulla,Mar,136
+Wakulla,Apr,372
+Walton,Jan,0
+Walton,Feb,0
+Walton,Mar,5
+Walton,Apr,877
+Washington ,Jan,0
+Washington ,Feb,0
+Washington ,Mar,5
+Washington ,Apr,178
