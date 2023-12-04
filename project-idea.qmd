@@ -158,48 +158,9 @@ state_cases_reduced <- state_cases |>
 ```
 
 ```{r}
-COVID_Voter_2020 <- voter_registration |>
-  filter(Year == "2020") 
-
-COVID_Voter_2020$Year<- NULL
-
-combined_COVID_Voter_2020 <- merge(COVID_Voter_2020, state_cases, by = c("State", "Month"), all = TRUE)
-
-logtest <- combined_COVID_Voter_2020 |>
-  filter(!(Month %in% c("Jan", "Feb")))
-
-logtest <- logtest |>
-  mutate(log_voters = log10(NewRVoters), 
-         log_cases = log10(tot_cases)) 
-
-ggplot(logtest, aes(x = log_cases, y = log_voters))+
-  geom_point() +
-  geom_smooth(method = lm, se = FALSE) +
-  scale_y_continuous(limits = c(0, 10))
-```
-
-```{r}
 ggplot(state_cases, aes(x = tot_cases, y = tot_deaths))+
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
-```
-
-```{r}
-fit1 <- lm(log_cases ~ log_voters, data = logtest) 
-
-get_regression_table(fit1)
-```
-
-```{r}
-coefficients <- coef(fit1)
-print(coefficients)
-```
-
-```{r}
-pred_data <- augment(fit1)
-
-# glimpse our new data 
-glimpse(pred_data)
 ```
 
 ```{r}
@@ -217,7 +178,7 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)
 ```
 
 ```{r}
-  fit1 <- lm(pip ~ postcovid + MedianIncome, data = fl_pip)
+  fit2 <- lm(pip ~ postcovid + MedianIncome, data = fl_pip)
 
   get_regression_table(fit1)
 ```
@@ -243,7 +204,25 @@ glimpse(pred_data)
 ```
 
 ```{r}
-ggplot(pred_data, aes(y = .resid)) + 
-  geom_boxplot() + 
-  labs(title = "Residuals from Registered Voter Analysis", y = "Residuals") +
+ggplot(pred_data, aes(x = .resid)) +  
+  geom_histogram(binwidth = 7, fill = "blue", color = "white") + 
+  labs(title = "Residual Histogram", x = "Residuals") +
   theme_minimal()
+```
+
+```{r}
+ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +  
+  geom_jitter() + 
+  geom_smooth(method = lm, se = FALSE, col = "blue") +
+  labs(title = "Residuals vs. Median Income", y = "Residuals") +
+  theme_minimal()
+```
+ 
+```{r}
+ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +  
+  geom_boxplot() + 
+  geom_smooth(method = lm, se = FALSE, col = "blue") +
+  labs(title = "Residuals from Registered Voter Analysis", y = "Residuals") +
+  facet_wrap(~postcovid) +
+  theme_minimal()
+```
