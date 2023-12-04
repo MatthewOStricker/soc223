@@ -26,7 +26,8 @@ us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/so
 glimpse(voter_registration)
 florida_ex <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Type%20of%20Registration.csv")
 fl_tot <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Voter%20Registration%20Applications%20Received%20by%20Source%20and%20County%202020%20total.csv")
-fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/FL%20by%20Month%20C-19.csv")
+fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Use%20this%20for%20FL")
+fl_pip <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/FL-PIP.csv")
 
 colnames(voter_registration) <- c("State", "Year", "Month", "NewRVoters")
 
@@ -35,6 +36,8 @@ month_order <- c("Jan", "Feb", "Mar", "Apr", "May")
 voter_registration$Month <- factor(voter_registration$Month, levels = month_order)
 
 florida_ex$Month <- factor(florida_ex$Month, levels = month_order)
+
+fl_pip$Month <- factor(fl_pip$Month, levels = month_order)
 
 voter_registration <- voter_registration |>
   filter(Month == "Jan" | Month == "Feb" | Month == "Mar" | Month == "Apr" ) 
@@ -73,9 +76,6 @@ state_cases <- state_cases |>
 ```
 
 ```{r}
-state_cases <- state_cases |>
-  filter(start_date <= as.Date("2020-05-31"))
-
   state_cases$end_date <- as.Date(state_cases$end_date)
   state_cases$Month <- month(ymd(state_cases$end_date), label = TRUE) 
   
@@ -96,11 +96,11 @@ To better analyze to see if this occurred and what caused the results that will 
 
 Since COVID started to gain large traction in the United States in the earlier months of the year 2020, I will be focusing my analysis on Jan-May for the year 2020 and comparing that with the months Jan-May in 2016. The impacts of COVID, which was identified as a global pandemic and passed more than 100,000 deaths in the U.S., were apparent and we should be able to assess what impact, if any, it had on the voter registration in the country. (source: <https://www.usatoday.com/in-depth/news/nation/2020/04/21/coronavirus-updates-how-covid-19-unfolded-u-s-timeline/2990956001/>)
 
-Please note, per the CDC, where the COVID-19 cases data was collected, "New York State\'s reported case and death counts do not include New York City\'s counts as they separately report nationally notifiable conditions to CDC." This explains why there is info for NY and NYC.
+Please note, per the CDC, where the COVID-19 cases data was collected, "New York State's reported case and death counts do not include New York City's counts as they separately report nationally notifiable conditions to CDC." This explains why there is info for NY and NYC.
 
 Additionally, only 11 states and Washington D.C. will be included in the datasets because those were the only places where fivethirtyeight was able to get data on new registered voters. I could not find any supplemental data for the other states. However, I believe the 12 jurisdictions will be able to accurately answer the aformentioned question.
 
-# 2.  Exploratory Data Analysis
+# 2. Exploratory Data Analysis
 
 ```{r}
 ggplot(us_population, aes(x = date, y = Population)) +
@@ -203,23 +203,47 @@ glimpse(pred_data)
 ```
 
 ```{r}
-ggplot(pred_data, aes(x = log_cases, y = log_voters))+
-  geom_point() +
-  geom_line(aes(x = log_cases, y = .fitted), col = "orange") +
-  scale_y_continuous(limits = c(0, 10))
-```
-
-```{r}
-ggplot(pred_data, aes(x = log_cases, y = .resid))+
-  geom_point() +
-   geom_smooth(method = lm, se = FALSE, col = "orange") +
-  scale_y_continuous(limits = c(0, 2))
-```
-
-```{r}
 florida_ex <- florida_ex |>
   pivot_longer(cols = c(InPerson, Remote), names_to = "Variable", values_to = "Value")
 
 ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)) +
   geom_line(linewidth = 1.5)
 ```
+
+```{r} 
+  fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
+
+  get_regression_table(fit1)
+```
+
+```{r}
+  fit1 <- lm(pip ~ postcovid + MedianIncome, data = fl_pip)
+
+  get_regression_table(fit1)
+```
+
+```{r}
+ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak")  
+```
+
+
+b2(MedianIncome)
+
+y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid)
+(MedianInome)
+
+```{r}
+pred_data <- augment(fit1)
+
+glimpse(pred_data)
+
+```
+
+```{r}
+ggplot(pred_data, aes(y = .resid)) + 
+  geom_boxplot() + 
+  labs(title = "Residuals from Registered Voter Analysis", y = "Residuals") +
+  theme_minimal()
