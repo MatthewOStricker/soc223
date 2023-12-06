@@ -1,15 +1,11 @@
 ---
-title: "Final Project:Assessing COVID-19 Impacts on Voter Registration in 2020"
+title: "Final Project: Assessing COVID-19 Impacts on Voter Registration in 2020"
 author: "Matthew O'Stricker"
 embed-resources: true
 format: html
 editor: visual
 echo: false
 ---
-
-## 1. Introduction
-
-For my final project, I plan to answer the research question "What impact did the COVID-19 pandemic have on voter registration in the United States between January-February and March-April in 2020?". To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state.
 
 ```{r}
 #| message: false
@@ -24,7 +20,6 @@ voter_registration <- read_csv("https://raw.githubusercontent.com/MatthewOStrick
 covid_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/covid-cases.csv")
 state_cases <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Weekly_United_States_COVID-19_Cases_and_Deaths_by_State_-_ARCHIVED_20231109.csv")
 us_population <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/united-states-population.csv")
-glimpse(voter_registration)
 florida_ex <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Type%20of%20Registration.csv")
 fl_tot <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Voter%20Registration%20Applications%20Received%20by%20Source%20and%20County%202020%20total.csv")
 fl_COVID <- read_csv("https://raw.githubusercontent.com/MatthewOStricker/soc223/main/Use%20this%20for%20FL")
@@ -62,14 +57,6 @@ voter_registration$State <- ifelse(is.na(voter_registration$State), "DC", voter_
 ```
 
 ```{r}
-glimpse(covid_cases)
-```
-
-```{r}
-glimpse(state_cases)
-```
-
-```{r}
 state_cases <- state_cases |>
   mutate(date_updated = mdy(date_updated), 
          start_date = mdy(start_date), 
@@ -84,26 +71,29 @@ state_cases <- state_cases |>
     filter(Month == "Apr" | Month == "Jan" | Month == "Feb" | Month == "Mar")
 ```
 
-1.  General b/t 16 - 20
-2.  Get all states covid data for 2020
-    1.  Figure out what month is the highest peak for each state
-    2.  lm(newvoter \~ octpeak)
-
-# 1. Introduction
+## 1. Introduction
 
 COVID-19 took the world by storm in 2020 and greatly altered so many key aspects of our daily lives. Outside of the many lives that were taken by the disease, the global pandemic created a shift in the very fabric of American democracy due to the implications it had on the U.S. presidential elections. The U.S. presidential election is a historic staple in American democracy that ultimately decides who will become the leader of the "free world" for the next four years. With the U.S. seeing a constant slight rise in recent years, the expectation is that there would be a constant rise in voter registration in the presidential elections.
 
 To better analyze to see if this occurred and what caused the results that will be found, I plan to answer the research question "What change, if any, occurred to the way voters registered in Florida pre-pandemic - Janurary through February - and post-pandemic - March through April - in 2020?" To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state. To measure the impact, I plan to compare the monthly from Jan-April trends for certain states during the 2020 election cycle to see if I can spot any key differences. I plan to track the change in these months by taking a look at the change in in-person and remote voting during the period.
 
-Since COVID started to gain large traction in the United States in the earlier months of the year 2020, I will be focusing my analysis on Jan-May for the year 2020. The impacts of COVID, which was identified as a global pandemic and passed more than 100,000 deaths in the U.S., were apparent and we should be able to assess what impact, if any, it had on the voter registration in the country. (source: <https://www.usatoday.com/in-depth/news/nation/2020/04/21/coronavirus-updates-how-covid-19-unfolded-u-s-timeline/2990956001/>)
+Since COVID started to gain large traction in the United States in the earlier months of the year 2020, I will be focusing my analysis on Jan-May for the year 2020. The impacts of COVID, which was identified as a global pandemic and passed more than 100,000 deaths in the U.S., were apparent and we should be able to assess what impact, if any, it had on the voter registration in the country.\[\^1\]
 
 Please note, per the CDC, where the COVID-19 cases data was collected, "New York State's reported case and death counts do not include New York City's counts as they separately report nationally notifiable conditions to CDC." This explains why there is info for NY and NYC.
 
 Additionally, only 11 states and Washington D.C. will be included in the datasets because those were the only places where fivethirtyeight was able to get data on new registered voters. I could not find any supplemental data for the other states. However, I believe the 12 jurisdictions will be able to accurately answer the aformentioned question.
 
-In order to conduct effective regression and residual analysis, I plan to use the state of Florida as a key example for that portion of my final project. Since Florida was the state with the most data accessible, it will serve as the example that can serve as the answer to the research question. I specified my research question to focus on Florida for this reason and hope the answer can potentially serve as the foundation for any future research questions and analysis that takes place in other states during 2020.
+In order to conduct effective regression and residual analysis, I plan to use the state of Florida, with a focus on its counties, as a key example for that portion of my final project. Since Florida was the state with the most data accessible, it will serve as the example that can serve as the answer to the research question. I specified my research question to focus on Florida for this reason and hope the answer can potentially serve as the foundation for any future research questions and analysis that focuses on COVID-19's impact other states during 2020.
 
-# 2. Exploratory Data Analysis
+\[\^1\]: <https://www.usatoday.com/in-depth/news/nation/2020/04/21/coronavirus-updates-how-covid-19-unfolded-u-s-timeline/2990956001/>)
+
+Take a look at the main data I will be analyzing about the counties in Florida during the first four months of 2020:
+
+```{r}
+head(fl_pip)
+```
+
+## 2. Exploratory Data Analysis
 
 ```{r}
 ggplot(us_population, aes(x = date, y = Population)) +
