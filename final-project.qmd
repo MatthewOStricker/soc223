@@ -71,7 +71,7 @@ state_cases <- state_cases |>
     filter(Month == "Apr" | Month == "Jan" | Month == "Feb" | Month == "Mar")
 ```
 
-## 1. Introduction
+# 1. Introduction
 
 COVID-19 took the world by storm in 2020 and greatly altered so many key aspects of our daily lives. Outside of the many lives that were taken by the disease, the global pandemic created a shift in the very fabric of American democracy due to the implications it had on the U.S. presidential elections. The U.S. presidential election is a historic staple in American democracy that ultimately decides who will become the leader of the "free world" for the next four years. With the U.S. seeing a constant slight rise in recent years, the expectation is that there would be a constant rise in voter registration in the presidential elections.
 
@@ -93,7 +93,7 @@ Take a look at the main data I will be analyzing about the counties in Florida d
 head(fl_pip)
 ```
 
-## 2. Exploratory Data Analysis
+# 2. Exploratory Data Analysis
 
 ```{r}
 ggplot(us_population, aes(x = date, y = Population)) +
@@ -190,6 +190,28 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = RegistrationMethod, group =
 Figure 4: Comparison of methods of Voter Registration
 
 One would assume, barring outside circumstances like COVID-19, the number of in-person voters would increase over time at the onset of the year. Figure 4, which answers the key question of how voters register, found a similar area of drastic decline following February through April. For this graph, the sharp decrease in registration was restricted to in-person voters and not remote voters. So, this figure explains that something occurred after February that resulted in a decline in the amount of voters who registered in person. Remote registrants experienced a marginal decline, which means that these voters were not extremely impacted by the outside factor as compared to the in-person voters. Knowing that COVID-19 cases were on the rise at the same time, a thread of correlation between COVID-19 and voter registrants have begun to take shape.
+
+# 3. Multiple linear regression
+
+## 3.1 Methods 
+
+## 3.2 Model Results
+
+## 3.3 Interpreting the regression table
+
+## 3.4 Inference for multiple regression
+
+## 3.5 Residual Analysis
+
+# 4. Discussion
+
+## 4.1 Conclusions
+
+## 4.2 Limitations
+
+## 4.3 Further questions
+
+# 5. Citations and References
 
 ```{r}
   fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
