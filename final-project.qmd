@@ -158,7 +158,7 @@ ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)
   facet_wrap(~Year) +
   labs(title = "Comparing the New Registered Voters in 2016 to 2020 from Jan-May",
        fill = "Year",
-       y = "New Registered Voters")
+       y = "New Registered Voters") 
 ```
 
 **Figure 3: Comparing the New Registered Voters from 2016 to 2020 from Jan-May**
@@ -273,10 +273,8 @@ $$
 ## 3.5 Residual Analysis
 ```{r}
 pred_data <- augment(fit2)
-
-glimpse(pred_data)
 ```
-
+To ensure that I can fully trust the results of the linear regression, I will need to some residual analysis on the data. Further, the analysis will help e detect any outliers or other points that could skew my regression model. 
 
 ```{r}
 ggplot(pred_data, aes(x = .resid)) +  
@@ -284,23 +282,26 @@ ggplot(pred_data, aes(x = .resid)) +
   labs(title = "Residual Histogram", x = "Residuals") +
   theme_minimal()
 ```
-
+**Figure 6. Histogram of residuals for my statistical model **
 ```{r}
 ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +  
   geom_jitter() + 
   geom_smooth(method = lm, se = FALSE, col = "blue") +
-  labs(title = "Residuals vs. Median Income", y = "Residuals") +
+  labs(title = "Residuals vs. Median Income", x = "Median Income", y = "Residuals") +
   theme_minimal()
 ```
-
+**Figure 7. Scatterplots of residuals against the numeric explanatory variable**
 ```{r}
 ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +  
   geom_boxplot() + 
   geom_smooth(method = lm, se = FALSE, col = "blue") +
-  labs(title = "Residuals from Registered Voter Analysis", y = "Residuals") +
+  labs(title = "Residuals from Registered Voter Analysis", y = "Residuals", x = "Median Income") +
   facet_wrap(~postcovid) +
   theme_minimal()
 ```
+**Figure 8. Boxplot of residuals for Median Incomes pre- and post-COVID outbreak**
+
+Two out of the three model residuals have normal distributions. The one exception is the histogram, which canvases both positive and negative areas on the model. The wide range of values on the model could have some potential extreme outliers skewing the data. For the scatter plot, it features two distinct outliers that are near the Median Income of 45,000 to 50,000. On the boxplot, post-Covid has a higher amount of residuals compared to pre-Covid months, which also feature three key outliers with negative residuals. 
 
 # 4. Discussion
 
