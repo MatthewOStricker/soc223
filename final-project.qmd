@@ -175,22 +175,21 @@ state_cases_reduced <- state_cases |>
 ```
 
 ```{r}
-ggplot(state_cases, aes(x = tot_cases, y = tot_deaths))+
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
+florida_ex <- florida_ex |>
+  pivot_longer(cols = c(InPerson, Remote), names_to = "RegistrationMethod", values_to = "Value")
+```
+
+```{r}
+ggplot(florida_ex, aes(x = Month, y = Value, color = RegistrationMethod, group = RegistrationMethod)) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Comparison of Methods of Voter Registration", y = "Number of Registered Voters", x = "Month") +
+  scale_color_manual(name = "Registration Method",
+                     values = c("InPerson" = "blue", "Remote" = "red"))
 ```
 
 Figure 4: Comparison of methods of Voter Registration
 
 One would assume, barring outside circumstances like COVID-19, the number of in-person voters would increase over time at the onset of the year. Figure 4, which answers the key question of how voters register, found a similar area of drastic decline following February through April. For this graph, the sharp decrease in registration was restricted to in-person voters and not remote voters. So, this figure explains that something occurred after February that resulted in a decline in the amount of voters who registered in person. Remote registrants experienced a marginal decline, which means that these voters were not extremely impacted by the outside factor as compared to the in-person voters. Knowing that COVID-19 cases were on the rise at the same time, a thread of correlation between COVID-19 and voter registrants have begun to take shape.
-
-```{r}
-florida_ex <- florida_ex |>
-  pivot_longer(cols = c(InPerson, Remote), names_to = "Variable", values_to = "Value")
-
-ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)) +
-  geom_line(linewidth = 1.5)
-```
 
 ```{r}
   fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
