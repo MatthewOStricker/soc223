@@ -263,7 +263,7 @@ When assessing the first hypothesis based off of the information from the regres
 
 **Null Hypothesis #2**
 
-For the second null hypothesis, I that there is no relationship between postcovid and MedianIncome. Essentially, the null hypothesis is stating there is no relationship between COVID-19 and the MedianIncome of citizens in different Florida counties. For the 95% confidence interval, postcovid:MedianIncome occupies only 0.000, gives me little faith that the relationship between the variables in significant. Further, the p-value, which is 0.976, is greater than 0.05 and leads to another failure to reject the hypothesis. $$
+For the second null hypothesis, I that there is no relationship between postcovid and MedianIncome. Essentially, the null hypothesis is stating there is no relationship between COVID-19 and the MedianIncome of citizens in different Florida counties. For the 95% confidence interval, postcovid:MedianIncome (pCmi) occupies only 0.000, gives me little faith that the relationship between the variables in significant. Further, the p-value, which is 0.976, is greater than 0.05 and leads to another failure to reject the hypothesis. $$
 H_0 :β_{pCmi} = 0
 $$
 
@@ -328,11 +328,11 @@ The residual analysis essentially found normal distributions with potential outl
 
 ## 4.2 Limitations
 
-There were a variety of limitations that made this process of answering this question so difficult. First, only 11 (12 if you count D.C.) of the 50 states had accessible data on voter registration from 2020. The lack accessibility reduced my reach substantially and forced me to continue to pivot until I came across certain state sites that had bits and pieces of information about their voter registrants. Another main issues was that there was no premade data set featuring information on voter registration and COVID-19 cases, which led to the creation of plenty of datasets that were quite time-consuming to complete. Additionally, the imbalance of data online made it harder to generate certain charts as the data was largely dominated by COVID data points since a greater amount of funding was generated for those efforts. The lack of complete data by states quite ludacris and barred me from truly being able to get down and truly establish how COVID impacted the democracy of the American people.
+There were a variety of limitations that made this process of answering this question so difficult. First, only 11 (12 if you count D.C.) of the 50 states had accessible data on voter registration from 2020. The lack accessibility reduced my reach substantially and forced me to continue to pivot until I came across certain state sites that had bits and pieces of information about their voter registrants. Another main issues was that there was no premade data set featuring information on voter registration and COVID-19 cases, which led to the creation of plenty of datasets that were quite time-consuming to complete. Additionally, the imbalance of data online made it harder to generate certain charts as the data was largely dominated by COVID data points since a greater amount of funding was generated for those efforts. The lack of complete data by states is quite ludicrous and barred me from truly being able to get down and truly establish how COVID impacted the democracy of the American people.
 
 ## 4.3 Further questions
 
-While my main desire at the onset was to extend this analysis across the country and present similar questions to those citizens and aggregate the data to have a holistic perspective of the country's full impact on the 2020 election. I would want to analyze other variables such as age, gender, or race played in a role in a person's remaining in the percentage that is still able to vote in-person. It could also be a great question to see if the change in voter registration in 2020 create a long-term trend in voting that has changed how certain citizens vote. 
+While my main desire at the onset was to extend this analysis across the country and present similar questions to those citizens and aggregate the data to have a holistic perspective of the country's full impact on the 2020 election. I would want to analyze other variables such as age, gender, or race played in a role in a person's remaining in the percentage that is still able to vote in-person. It could also be a great question to see if the change in voter registration in 2020 created a long-term trend in voting that has changed how certain citizens vote. 
 
 # 5. Citations and References
 
