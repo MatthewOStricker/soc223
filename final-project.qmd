@@ -332,8 +332,8 @@ While my main desire at the onset was to extend this analysis across the country
 
 4.  Mathieu, Edouard et al. *Coronavirus (COVID-19) Cases*. 2020. <https://ourworldindata.org/covid-cases>
 
-5.  <https://www.macrotrends.net/countries/USA/united-states/population-growth-rate>
+5.  Macrotrends. *U.S. Population Growth Rate 1950-2023*. 2023. <https://www.macrotrends.net/countries/USA/united-states/population-growth-rate>
 
-6.  <https://www.flhealthcharts.gov/ChartsDashboards/rdPage.aspx?rdReport=NonVitalIndRateOnly.Dataviewer&cid=293>
+6.  Division of Public Statistics and Performance Management. *Median Household Income*. 2023. <https://www.flhealthcharts.gov/ChartsDashboards/rdPage.aspx?rdReport=NonVitalIndRateOnly.Dataviewer&cid=293>
 
 7.  Strauss, Valerie. *What the numbers really tell us about America\'s public schools*. Washington Post, March 2017. \_<https://www.washingtonpost.com/news/answer-sheet/wp/2017/03/06/what-the-numbers-really-tell-us-about-americas-public-schools/?noredirect=on&utm_term=.d9a5b415678d>[↩](https://moderndive.github.io/moderndive_labs/static/term_project/resubmission_example.html#fnref1)
