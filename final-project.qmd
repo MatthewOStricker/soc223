@@ -244,7 +244,7 @@ $$
 
 ## 3.4 Inference for multiple regression
 
-There are two null hypotheses that I will assess based on the information from the regression table. The first is that there is no relationship between `postcovid` and `PIP`, which is the outcome variable. 
+There are two null hypotheses that I will assess based on the information from the regression table. The first is that there is no relationship between postcovid and PIP, which is the outcome variable. 
 
 **Null Hypothesis #1**
 
@@ -260,7 +260,7 @@ When assessing the first hypothesis based off of the information from the regres
 
 **Null Hypothesis #2**
 
-For the second null hypothesis, I that there is no relationship between `postcovid` and `MedianIncome`. Essentially, the null hypothesis is stating there is no relationship between COVID-19 and the MedianIncome of citizens in different Florida counties. For the 95% confidence interval, `postcovid:MedianIncome` occupies only 0.000, gives me little faith that the relationship between the variables in significant. Further, the p-value, which is 0.976, is greater than 0.05 and leads to another failure to reject the hypothesis. 
+For the second null hypothesis, I that there is no relationship between postcovid and MedianIncome. Essentially, the null hypothesis is stating there is no relationship between COVID-19 and the MedianIncome of citizens in different Florida counties. For the 95% confidence interval, postcovid:MedianIncome occupies only 0.000, gives me little faith that the relationship between the variables in significant. Further, the p-value, which is 0.976, is greater than 0.05 and leads to another failure to reject the hypothesis. 
 $$
 H_0 :β_{pCmi} = 0
 $$
@@ -307,14 +307,21 @@ Two out of the three model residuals have normal distributions. The one exceptio
 
 ## 4.1 Conclusions
 
-In regards to figuring out 2020's stark decline in voter registration in the month's of March and April that ran counter to the expected positive trends from previous years, the statistical analysis has provided some interesting results. Starting with the regression analysis that was used to understand the relationshipo between the variables of PIP, MedianIncome, and postcovid, there was two main takeaways. First, there was a 10.076% decrease in PIP following the COVID-19 outbreak, which is the `1` in the categorical variable of `postcovid`. Second, I did not find a significant relationship between MedianIncome and the PIP nor could I find a substantial interaction between the two variables postcovid and MedianIncome. 
+In regards to figuring out 2020's stark decline in voter registration in the month's of March and April that ran counter to the expected positive trends from previous years, the statistical analysis has provided some interesting results. Starting with the regression analysis that was used to understand the relationshipo between the variables of PIP, MedianIncome, and postcovid, there was two main takeaways. First, there was a 10.076% decrease in PIP following the COVID-19 outbreak, which is the `1` in the categorical variable of postcovid. Second, I did not find a significant relationship between MedianIncome and the PIP nor could I find a substantial interaction between the two variables postcovid and MedianIncome. 
 
 Moving to the hypothesis testing, the two null hypotheses were inconclusive and held little significance. Issues included non-significant p-values, confidence intervals spanning 0.000, and the other confidence interval being spanned over positive and negative values. 
 
-The residual analysis essentially found normal distributions with potential outliers that could be of concern for the accuracy of the data. In conclusion, the overall analysis has shown the onset of COVID-19 in early 2020 had a significant impact on American communities. While I was able to locate data and generate analysis discovering the link between COVID and voter registration, I retain a healthy level of concern for the accuracy of the data due to the model uncertainties and residual outliers also in the data.
+The residual analysis essentially found normal distributions with potential outliers that could be of concern for the accuracy of the data. In conclusion, the overall analysis has shown the onset of COVID-19 in early 2020 had a significant impact on Florida counties. It is my assumption that the impacts in Florida covered today were similarly occurring in other states. While I was able to locate data and generate analysis discovering the link between COVID and voter registration, I retain a healthy level of concern for the accuracy of the data due to the model uncertainties and residual outliers also in the data. 
 
 ## 4.2 Limitations
 
+There were a variety of limitations that made this process of answering this question so difficult. First, only 11 (12 if you count D.C.) of the 50 states had accessible data on voter registration from 2020. The lack accessibility reduced my reach substantially and forced me to continue to pivot until I came across certain state sites that had bits and pieces of information about their voter registrants. 
+Another main issues was that there was no premade data set featuring information on voter registration and COVID-19 cases, which led to the creation of plenty of datasets that were quite time-consuming to complete. Additionally, the imbalance of data online made it harder to generate certain charts as the data was largely dominated by COVID data points since a greater amount of funding was generated for those efforts. The lack of complete data by states quite ludacris and barred me from truly being able to get down and truly establish how COVID impacted the democracy of the American people.
+
 ## 4.3 Further questions
 
+While my main desire at the onset was to extend this analysis across the country and present similar questions to those citizens and aggregate the data to have a holistic perspective of the country's full impact on the 2020 election. I would want to analyze other variables such as age, gender, or race played in a role in a person's remaining in the percentage that is still able to vote in-person. It could also be a great question to see if the change in voter registration in 2020 create a long-term trend in voting that has changed how certain citizens vote. Of
+
 # 5. Citations and References
+
+
