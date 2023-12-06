@@ -105,7 +105,22 @@ ggplot(us_population, aes(x = date, y = Population)) +
   scale_y_continuous(labels = comma)
 ```
 
-Data shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States.
+Figure 1 belows shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States. Any dramatic shifts in registration numbers will be alarming and a cause for investigation.
+
+States/Districts Included in my Datasets:
+
+1.  Arizona (AZ)
+2.  California (CA)
+3.  Colorado (CO)
+4.  Washington D.C. (DC)
+5.  Delaware (DE)
+6.  Florida (FL)
+7.  Georgia (GA)
+8.  Illinois (IL)
+9.  Maryland (MD)
+10. North Carolina (NC)
+11. Texas (TX)
+12. Virginia (VA)
 
 ```{r}
   summary_cases <- state_cases |>
@@ -123,16 +138,21 @@ Data shows that the population in the United States has been growing at a steady
   
 ```
 
+Figure 1. Population Growth in the United States from 2016 to 2020
+
+After finding the population growth, I wanted to do a dive on the year 2020. First, I graphed Figure 2, which shows the total COVID-19 cases by month for the states included in the datasets, to gauge the amount of cases and their growth trends. It seems the total amount of cases was steadily growing and peaked during the month of March. Since I am able to see there was a large amount of cases during the month, I will want to look at the voter registration during the months to see if I can spot anything of significance. I hypothesize there will be a decline in voter registrations from the month of March to April in 2020.
+
 ```{r}
 
-ggplot(summary_cases, aes(x = Month, y = Mean_cases)) +
+ggplot(state_cases, aes(x = Month, y = tot_cases)) +
   geom_bar(stat = "identity", fill = "red") +
-  labs(title = "Mean COVID-19 Cases by Month in the United States",
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  labs(title = "Total COVID-19 Cases by Month in 2020",
        x = "Month",
        y = "Mean COVID Cases") 
 ```
 
-Create boxplot for the top 4 states with highest mean cases. Then focus analysis on those. Also do key example of florida later on.
+Figure 2. Total COVID-19 Cases by Month in 2020
 
 ```{r}
 ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)))+
@@ -143,6 +163,10 @@ ggplot(voter_registration, aes(x = Month, y = NewRVoters, fill = as.factor(Year)
        fill = "Year",
        y = "New Registered Voters")
 ```
+
+Figure 3: Comparing the New Registered Voters from 2016 to 2020 from Jan-May
+
+As we can see from Figure 3, there was quite a shift that occurred. In 2016, there was an expected trend of voter registration steadily increasing for the first three months before experiencing a marginal decline in April. However, in 2020, there was an extremely high peak in February that was followed by a decent drop in March and a massive decline in April. Figure 3 highlights the ever-apparent result: some factor contributed to the drastic decrease in voter registrations from March to April in 2020 that prevented the chart from following the similar trend from 2016. I hypothesize that COVID-19 was a key contributor to the drastic decline in voter registration from March to April in 2020. Now, begins the quest of running analysis to identity any potential correlation between Covid cases and voter registration.
 
 ```{r}
 state_cases_reduced <- state_cases |>
