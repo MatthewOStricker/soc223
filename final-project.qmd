@@ -244,7 +244,7 @@ $$
 
 ## 3.4 Inference for multiple regression
 
-There are two null hypotheses that I will assess based on the information from the regression table. The first is that there is no relationship between `postcovid` and `PIP, which is the outcome variable. 
+There are two null hypotheses that I will assess based on the information from the regression table. The first is that there is no relationship between `postcovid` and `PIP`, which is the outcome variable. 
 
 **Null Hypothesis #1**
 
@@ -260,8 +260,7 @@ When assessing the first hypothesis based off of the information from the regres
 
 **Null Hypothesis #2**
 
-Regarding the second null hypothesis, 
-
+For the second null hypothesis, I that there is no relationship between `postcovid` and `MedianIncome`. Essentially, the null hypothesis is stating there is no relationship between COVID-19 and the MedianIncome of citizens in different Florida counties. For the 95% confidence interval, `postcovid:MedianIncome` occupies only 0.000, gives me little faith that the relationship between the variables in significant. Further, the p-value, which is 0.976, is greater than 0.05 and leads to another failure to reject the hypothesis. 
 $$
 H_0 :β_{pCmi} = 0
 $$
