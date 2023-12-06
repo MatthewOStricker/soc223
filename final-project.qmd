@@ -217,28 +217,21 @@ For my multiple linear regression model, I will feature the following variables:
 
 -   Categorical explanatory variable postcovid = defines the period that was pre-covid (0) and the period that is post-covid (1)
 
-```{r}
-```
+Note: the unit of analysis is county since each row is a specific county in Florida.
 
 ## 3.2 Model Results
 
+
+**Table 1. Regression table of the parallel slopes model from Figure 5 that takes Post-COVID as a function of PIP and Median Income**
+```{r}
+  fit2 <- lm(pip ~ postcovid + MedianIncome + postcovid * MedianIncome, data = fl_pip)
+
+  get_regression_table(fit2)
+```
 ## 3.3 Interpreting the regression table
-
-```{r}
-  fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
-
-  get_regression_table(fit1)
-```
-
-```{r}
-  fit2 <- lm(pip ~ postcovid + MedianIncome, data = fl_pip)
-
-  get_regression_table(fit1)
-```
-
 b2(MedianIncome)
 
-y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid)\*(MedianInome)
+y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid)*(MedianIncome)
 
 ```{r}
 pred_data <- augment(fit1)
