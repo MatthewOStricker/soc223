@@ -195,11 +195,13 @@ Lastly, I generated a colored scatterplot that displayed the relationship betwee
 ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak")  
+  labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak") +
+  scale_color_manual(name = "Pre (0) or Post-COVID (1)",
+                     values = c("1" = "blue", "0" = "red"))
 ```
 **Figure 5: Regression Analysis of PIP and Median Income**
 
-As noticed in Figure 5, both regression lines are essentially parallel and positively sloped to a degree, which implies a positive relationship and a consistency of the independent and dependent variables across both categories of the Post-COVID variable.
+As noticed in Figure 5, both regression lines are essentially parallel and positively sloped to a degree, which implies a positive relationship and a consistency of the independent and dependent variables across both categories of the Pre/Post-COVID variable.
 
 # 3. Multiple linear regression
 
