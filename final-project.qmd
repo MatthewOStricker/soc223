@@ -189,7 +189,7 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = RegistrationMethod, group =
 
 One would assume, barring outside circumstances like COVID-19, the number of in-person voters would increase over time at the onset of the year. Figure 4, which answers the key question of how voters register, found a similar area of drastic decline following February through April. For this graph, the sharp decrease in registration was restricted to in-person voters and not remote voters. So, this figure explains that something occurred after February that resulted in a decline in the amount of voters who registered in person. Remote registrants experienced a marginal decline, which means that these voters were not extremely impacted by the outside factor as compared to the in-person voters. Knowing that COVID-19 cases were on the rise at the same time, a thread of correlation between COVID-19 and voter registrants have begun to take shape.
 
-Lastly, I generated a colored scatterplot that displayed the relationship between the percentage of the median income of citzens in Florida counties and in-person voters from January to April in 2020. 
+Lastly, I generated a colored scatterplot that displayed the relationship between the percentage of the median income of citzens in Florida counties and in-person voters from January to April in 2020.
 
 ```{r}
 ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
@@ -199,6 +199,7 @@ ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
   scale_color_manual(name = "Pre (0) or Post-COVID (1)",
                      values = c("1" = "blue", "0" = "red"))
 ```
+
 **Figure 5: Regression Analysis of PIP and Median Income**
 
 As noticed in Figure 5, both regression lines are essentially parallel and positively sloped to a degree, which implies a positive relationship and a consistency of the independent and dependent variables across both categories of the Pre/Post-COVID variable.
@@ -213,7 +214,7 @@ For my multiple linear regression model, I will feature the following variables:
 
 -   Outcome variable y = pip or the percentage of in-person voters
 
--   Numerical explanatory variable medinc = Median income of citizens in the county
+-   Numerical explanatory variable MedianIncome = Median income of citizens in the county
 
 -   Categorical explanatory variable postcovid = defines the period that was pre-covid (0) and the period that is post-covid (1)
 
@@ -221,28 +222,36 @@ Note: the unit of analysis is county since each row is a specific county in Flor
 
 ## 3.2 Model Results
 
-
 **Table 1. Regression table of the parallel slopes model from Figure 5 that takes Post-COVID as a function of PIP and Median Income**
+
 ```{r}
   fit2 <- lm(pip ~ postcovid + MedianIncome + postcovid * MedianIncome, data = fl_pip)
 
   get_regression_table(fit2)
 ```
+
 ## 3.3 Interpreting the regression table
-b2(MedianIncome)
 
-y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid)*(MedianIncome)
+$$
+y = b_0 + b_1(postcovid) + b_2(MedianIncome) + b_3(postcovid)*(MedianIncome)
+$$
 
+-   The intercept of 77.3 showcases the percentage of those registering in-person to vote when in pre-covid (postcovid = 0) and the median income citizens in Florida countries is 0.
+
+-   The estimate for the slope for postcovid represents the change in PIP depending on if we are in pre-covid or post-covid outbreak. The -10.076 slope states that the PIP drops by 10.076% when transitioning from pre-COVID to post-COVID. This is an inclination that there is a drop off in in-person registrants following the COVID-19 outbreak.
+
+-   The 0 estimate for both MedianIncome and the interaction term of postcovid:MedianIncome lets me know that a significant relationship between MedianIncome and PIP does not exist. Further, the interaction term being 0 states it does greatly influence the outcome of PIP.
+
+## 3.4 Inference for multiple regression
+
+
+
+## 3.5 Residual Analysis
 ```{r}
 pred_data <- augment(fit1)
 
 glimpse(pred_data)
-
 ```
-
-## 3.4 Inference for multiple regression
-
-## 3.5 Residual Analysis
 
 ```{r}
 ggplot(pred_data, aes(x = .resid)) +  
