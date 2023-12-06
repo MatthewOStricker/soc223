@@ -104,6 +104,7 @@ ggplot(us_population, aes(x = date, y = Population)) +
        y = "Population") +
   scale_y_continuous(labels = comma)
 ```
+
 **Figure 1. Population Growth in the United States from 2016 to 2020**
 
 Figure 1 belows shows that the population in the United States has been growing at a steady rate from 2016 to 2020. The constant growth leads me to hypothesize that there will be a growth in new voter registration numbers due to larger population in the United States. Any dramatic shifts in registration numbers will be alarming and a cause for investigation.
@@ -188,9 +189,34 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = RegistrationMethod, group =
 
 One would assume, barring outside circumstances like COVID-19, the number of in-person voters would increase over time at the onset of the year. Figure 4, which answers the key question of how voters register, found a similar area of drastic decline following February through April. For this graph, the sharp decrease in registration was restricted to in-person voters and not remote voters. So, this figure explains that something occurred after February that resulted in a decline in the amount of voters who registered in person. Remote registrants experienced a marginal decline, which means that these voters were not extremely impacted by the outside factor as compared to the in-person voters. Knowing that COVID-19 cases were on the rise at the same time, a thread of correlation between COVID-19 and voter registrants have begun to take shape.
 
+Lastly, I generated a colored scatterplot that displayed the relationship between the percentage of the median income of citzens in Florida counties and in-person voters from January to April in 2020. 
+
+```{r}
+ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak")  
+```
+**Figure 5: Regression Analysis of PIP and Median Income**
+
+As noticed in Figure 5, both regression lines are essentially parallel and positively sloped to a degree, which implies a positive relationship and a consistency of the independent and dependent variables across both categories of the Post-COVID variable.
+
 # 3. Multiple linear regression
 
+For the sections onward, I will be using Florida as a the state of reference for the analysis. Specifically, I will take a look analyzes the counties responses to different variables post-covid - January and February - and post-covid, which is March and April.
+
 ## 3.1 Methods
+
+For my multiple linear regression model, I will feature the following variables:
+
+-   Outcome variable y = pip or the percentage of in-person voters
+
+-   Numerical explanatory variable medinc = Median income of citizens in the county
+
+-   Categorical explanatory variable postcovid = defines the period that was pre-covid (0) and the period that is post-covid (1)
+
+```{r}
+```
 
 ## 3.2 Model Results
 
@@ -206,13 +232,6 @@ One would assume, barring outside circumstances like COVID-19, the number of in-
   fit2 <- lm(pip ~ postcovid + MedianIncome, data = fl_pip)
 
   get_regression_table(fit1)
-```
-
-```{r}
-ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak")  
 ```
 
 b2(MedianIncome)
