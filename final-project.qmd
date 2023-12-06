@@ -199,20 +199,6 @@ One would assume, barring outside circumstances like COVID-19, the number of in-
 
 ## 3.3 Interpreting the regression table
 
-## 3.4 Inference for multiple regression
-
-## 3.5 Residual Analysis
-
-# 4. Discussion
-
-## 4.1 Conclusions
-
-## 4.2 Limitations
-
-## 4.3 Further questions
-
-# 5. Citations and References
-
 ```{r}
   fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
 
@@ -243,6 +229,10 @@ glimpse(pred_data)
 
 ```
 
+## 3.4 Inference for multiple regression
+
+## 3.5 Residual Analysis
+
 ```{r}
 ggplot(pred_data, aes(x = .resid)) +  
   geom_histogram(binwidth = 7, fill = "blue", color = "white") + 
@@ -266,3 +256,15 @@ ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +
   facet_wrap(~postcovid) +
   theme_minimal()
 ```
+
+# 4. Discussion
+
+## 4.1 Conclusions
+
+## 4.2 Limitations
+
+## 4.3 Further questions
+
+# 5. Citations and References
+
+
