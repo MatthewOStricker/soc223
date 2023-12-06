@@ -1,14 +1,15 @@
 ---
-title: "Project Idea"
+title: "Final Project"
 author: "Matthew O'Stricker"
 embed-resources: true
 format: html
 editor: visual
+echo: false
 ---
 
-## Topic for Project
+## Final Project: Assessing COVID-19 Impacts on Voter Registration in 2020. 
 
-For my final project, I plan to answer the research question "What impact did the COVID-19 pandemic have on voter registration in the United States during the 2020 election?". To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state. To measure the impact, I plan to compare the monthly trends for each state during the 2016 and 2020 election cycle to see if I can spot any key differences.
+For my final project, I plan to answer the research question "What impact did the COVID-19 pandemic have on voter registration in the United States between January-February and March-April in 2020?". To answer the question, I plan to use the `voter_registration` dataset from fivethirtyeight and the `covid_cases` dataset that has the covid cases recorded in 2020 in the United States from Our World in Data to analyze the voter registration numbers for each state. To measure the impact, I plan to compare the monthly from Jan-April trends for certain states during the 2020 election cycle to see if I can spot any key differences. I plan to track the change in
 
 ```{r}
 #| message: false
@@ -171,7 +172,7 @@ ggplot(florida_ex, aes(x = Month, y = Value, color = Variable, group = Variable)
   geom_line(linewidth = 1.5)
 ```
 
-```{r} 
+```{r}
   fit1 <- lm(pip ~ postcovid * MedianIncome, data = fl_pip)
 
   get_regression_table(fit1)
@@ -190,11 +191,9 @@ ggplot(fl_pip, aes(x = MedianIncome, y = pip, color = factor(postcovid))) +
   labs(x = "Median Income", y = "PIP", color = "Post-COVID", title = "PIP vs. Median Income of Florida Country Registered Voters", subtitle = "Data from Counties in 2020 Pre- and Post-COVID Outbreak")  
 ```
 
-
 b2(MedianIncome)
 
-y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid)
-(MedianInome)
+y = b0 + b1(postcovid) + b2(medinc) + b3(postcovid) (MedianInome)
 
 ```{r}
 pred_data <- augment(fit1)
@@ -217,7 +216,7 @@ ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +
   labs(title = "Residuals vs. Median Income", y = "Residuals") +
   theme_minimal()
 ```
- 
+
 ```{r}
 ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +  
   geom_boxplot() + 
