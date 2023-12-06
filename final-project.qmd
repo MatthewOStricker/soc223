@@ -301,11 +301,17 @@ ggplot(pred_data, aes(x = MedianIncome, y = .resid)) +
 ```
 **Figure 8. Boxplot of residuals for Median Incomes pre- and post-COVID outbreak**
 
-Two out of the three model residuals have normal distributions. The one exception is the histogram, which canvases both positive and negative areas on the model. The wide range of values on the model could have some potential extreme outliers skewing the data. For the scatter plot, it features two distinct outliers that are near the Median Income of 45,000 to 50,000. On the boxplot, post-Covid has a higher amount of residuals compared to pre-Covid months, which also feature three key outliers with negative residuals. 
+Two out of the three model residuals have normal distributions. The one exception is the histogram, which canvases both positive and negative areas on the model. The wide range of values on the model could have some potential extreme outliers skewing the data. For the scatter plot, it features two distinct outliers that are near the Median Income of 45,000 to 50,000. On the boxplot, post-Covid has a higher amount of residuals compared to pre-Covid months, which also feature three key outliers with negative residuals. Additionally, the pre-Covid (0) boxplot being above the linear regression line gives rise to the concern of positive bias that could lead to overestimation in the regression model. 
 
 # 4. Discussion
 
 ## 4.1 Conclusions
+
+In regards to figuring out 2020's stark decline in voter registration in the month's of March and April that ran counter to the expected positive trends from previous years, the statistical analysis has provided some interesting results. Starting with the regression analysis that was used to understand the relationshipo between the variables of PIP, MedianIncome, and postcovid, there was two main takeaways. First, there was a 10.076% decrease in PIP following the COVID-19 outbreak, which is the `1` in the categorical variable of `postcovid`. Second, I did not find a significant relationship between MedianIncome and the PIP nor could I find a substantial interaction between the two variables postcovid and MedianIncome. 
+
+Moving to the hypothesis testing, the two null hypotheses were inconclusive and held little significance. Issues included non-significant p-values, confidence intervals spanning 0.000, and the other confidence interval being spanned over positive and negative values. 
+
+The residual analysis essentially found normal distributions with potential outliers that could be of concern for the accuracy of the data. In conclusion, the overall analysis has shown the onset of COVID-19 in early 2020 had a significant impact on American communities. While I was able to locate data and generate analysis discovering the link between COVID and voter registration, I retain a healthy level of concern for the accuracy of the data due to the model uncertainties and residual outliers also in the data.
 
 ## 4.2 Limitations
 
